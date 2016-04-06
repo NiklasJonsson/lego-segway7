@@ -1,13 +1,13 @@
 M = 0.1; %Mass of cart
 m = 0.7; %Mass of pendulum
 b = 0.1; %Cart friction
-I = 0.006; %mass moment of inertia of the pendulum 
 g = 9.8;
 l = 0.15; %length of pendulum
 s = tf('s');
 
-gamma=0;
-Jt=0;
+gamma=0; %rotational friction
+J=0; %mass moment of inertia of the pendulum 
+Jt=J+m*l*l;
 h=0.05; %sampling interval
 p=[1+1i 1-1i]; %continous time poles
 

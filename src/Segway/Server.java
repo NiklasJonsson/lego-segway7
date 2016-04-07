@@ -1,9 +1,9 @@
 package Segway;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
-
 public class Server {
 
+	public static void main(String[] args) {
+		DataSendThread sender = new DataSendThread("localhost", 1234);
+		sender.start();
+	}
 }

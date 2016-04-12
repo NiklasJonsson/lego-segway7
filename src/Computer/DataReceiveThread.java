@@ -1,34 +1,32 @@
 package Computer;
 
-import java.io.ObjectInputStream;
-import java.net.Socket;
+import java.io.IOException;
 
 public class DataReceiveThread extends Thread {
-	private String hostName;
-	private int port;
+	private SegwayConnection con;
 	private DataMonitor mon;
 
-	public DataReceiveThread(String hostName, int port, DataMonitor mon) {
-		this.hostName = hostName;
-		this.port = port;
+	public DataReceiveThread(SegwayConnection con, DataMonitor mon) {
+		this.con = con;
 		this.mon = mon;
 	}
 	
 	public void run() {
-		try {
-		   Socket socket = new Socket(hostName, port);
-		   ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-		   boolean done = false;
-		   while(!done) {
-			   Signals signals = (Signals) in.readObject();
-			   System.out.println(signals);
-			   mon.newData(signals);
-		   }
-		   socket.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		System.out.println("DataReceiveThread started...");
+		boolean done = false;
+		while(!done) {
+			Signals signals;
+			try {
+				signals = con.getSignals();
+				System.out.println("Got signals: " + signals);
+				mon.newData(signals);
+			} catch (ClassNotFoundException | IOException e) {
+				done = false;
+				e.printStackTrace();
+			}
+			   
 		}
+		System.out.println("DataReceiveThread exiting...");
 	}
-
 }
 

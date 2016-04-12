@@ -2,7 +2,7 @@ package Computer;
 
 public class DataMonitor {
 	private Signals signals;
-	private boolean newData;
+	private boolean newData = false;
 	
 	public synchronized void newData(Signals newSignals) {		
 		signals = (Signals) newSignals.clone();

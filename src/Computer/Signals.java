@@ -3,6 +3,13 @@ package Computer;
 import java.io.Serializable;
 
 public class Signals implements Cloneable, Serializable {
+	/**
+	 * Change this if fields are changed 
+	 * Used to keep track of different ways of serializing this class
+	 * E.g. if we change the order of the fields we need to change 
+	 * serialVersion, otherwise there will be errors
+	 */
+	private static final long serialVersionUID = -5522847640263865387L;
 	public double u;
 	public double y;
 	public double x1;
@@ -23,7 +30,7 @@ public class Signals implements Cloneable, Serializable {
 	}
 
 	@Override
-	protected Object clone() {
+	public Object clone() {
 		return new Signals(u,y,x1,x2,l1,l2,lr);
 	}
 	

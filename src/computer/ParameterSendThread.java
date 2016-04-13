@@ -1,6 +1,8 @@
-package Computer;
+package computer;
 
 import java.io.IOException;
+
+import utility.Parameters;
 
 public class ParameterSendThread extends Thread {
 	
@@ -22,7 +24,7 @@ public class ParameterSendThread extends Thread {
 				System.out.println("Sending parameters: " + params);
 				con.sendParameters(params);
 			} catch (InterruptedException | IOException e) {
-				done = false;
+				done = true;
 				e.printStackTrace();
 			}
 		}

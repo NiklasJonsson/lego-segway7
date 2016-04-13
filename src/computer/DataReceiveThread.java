@@ -1,6 +1,8 @@
-package Computer;
+package computer;
 
 import java.io.IOException;
+
+import utility.Signals;
 
 public class DataReceiveThread extends Thread {
 	private SegwayConnection con;
@@ -21,7 +23,7 @@ public class DataReceiveThread extends Thread {
 				System.out.println("Got signals: " + signals);
 				mon.newData(signals);
 			} catch (ClassNotFoundException | IOException e) {
-				done = false;
+				done = true;
 				e.printStackTrace();
 			}
 			   

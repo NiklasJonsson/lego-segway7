@@ -1,4 +1,6 @@
-package Computer;
+package computer;
+
+import utility.Signals;
 
 public class DataMonitor {
 	private Signals signals;

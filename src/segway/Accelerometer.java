@@ -1,4 +1,4 @@
-package Segway;
+package segway;
 
 public class Accelerometer {
 

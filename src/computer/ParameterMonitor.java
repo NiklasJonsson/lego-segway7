@@ -1,4 +1,6 @@
-package Computer;
+package computer;
+
+import utility.Parameters;
 
 public class ParameterMonitor {
 	private Parameters params;

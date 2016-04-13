@@ -1,4 +1,4 @@
-package Computer;
+package utility;
 
 import java.io.Serializable;
 

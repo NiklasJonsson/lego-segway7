@@ -1,4 +1,6 @@
-package Segway;
+package segway;
+
+import utility.Signals;
 
 public class RegulatorThread extends Thread {
 

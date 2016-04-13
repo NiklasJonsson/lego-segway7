@@ -1,9 +1,12 @@
-package Computer;
+package computer;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import utility.Parameters;
+import utility.Signals;
 
 /**
  * Represents a connection to a EV3 lego

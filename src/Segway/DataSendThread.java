@@ -7,11 +7,9 @@ import java.net.Socket;
 import Computer.Signals;
 
 public class DataSendThread extends Thread{
-	private String hostName;
 	private int port;
 
-	public DataSendThread(String hostName, int port) {
-		this.hostName = hostName;
+	public DataSendThread(int port) {
 		this.port = port;
 	}
 	
@@ -30,6 +28,7 @@ public class DataSendThread extends Thread{
 			   Thread.sleep(250);
 		   }
 		   socket.close();
+		   serverSocket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

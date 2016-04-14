@@ -10,37 +10,32 @@ public class Parameters implements Cloneable, Serializable {
 	 * serialVersion, otherwise there will be errors
 	 */
 	private static final long serialVersionUID = -5522847640263865387L;
-	public double K;
-	public double Ti;
-	public double Tr;
-	public double Td;
-	public double N;
-	public double Beta;
-	public double H;
+	public double K1;
+	public double K2;
+	public double L1;
+	public double L2;
+	public double Lr;
+	public double Kv;
 	public boolean integratorOn;
 	
-	public Parameters(double k, double ti, double tr, double td, double n, double beta, double h,
-			boolean integratorOn) {
-		super();
-		K = k;
-		Ti = ti;
-		Tr = tr;
-		Td = td;
-		N = n;
-		Beta = beta;
-		H = h;
+	public Parameters(double k1, double k2, double l1, double l2, double lr, double kv, boolean integratorOn) {
+		K1 = k1;
+		K2 = k2;
+		L1 = l1;
+		L2 = l2;
+		Lr = lr;
+		Kv = kv;
 		this.integratorOn = integratorOn;
 	}
-	
+
 	@Override
 	public Object clone() {
-		return new Parameters(K, Ti, Tr, Td, N, Beta, H, integratorOn);
+		return new Parameters(K1, K2, L1, L2, Lr, Kv, integratorOn);
 	}
 
 	@Override
 	public String toString() {
-		return "Parameters [K=" + K + ", Ti=" + Ti + ", Tr=" + Tr + ", Td=" + Td + ", N=" + N + ", Beta=" + Beta
-				+ ", H=" + H + ", integratorOn=" + integratorOn + "]";
+		return "Parameters [K1=" + K1 + ", K2=" + K2 + ", L1=" + L1 + ", L2=" + L2 + ", Lr=" + Lr + ", Kv=" + Kv
+				+ ", integratorOn=" + integratorOn + "]";
 	}
-
 }

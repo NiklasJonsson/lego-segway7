@@ -17,11 +17,8 @@ public class DataReceiveThread extends Thread {
 		System.out.println("DataReceiveThread started...");
 		boolean done = false;
 		while(!done) {
-			Signals signals;
 			try {
-				signals = con.getSignals();
-				System.out.println("Got signals: " + signals);
-				mon.newData(signals);
+				mon.newData(con.getSignals());
 			} catch (ClassNotFoundException | IOException e) {
 				done = true;
 				e.printStackTrace();

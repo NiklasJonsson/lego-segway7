@@ -21,6 +21,16 @@ public class ComputerMain {
 		}
 		DataMonitor dataMon = new DataMonitor();
 		ParameterMonitor paraMon = new ParameterMonitor(); 
+
+		final PlotterGUI plotter = new PlotterGUI(dataMon);
+		final ParameterGUI paramGUI = new ParameterGUI(paraMon);
+		SwingUtilities.invokeLater(new Runnable() {
+		    public void run() {
+		    	plotter.createAndShow();
+		    	paramGUI.createAndShow();
+		    }
+		});
+		
 		SegwayConnection con = new SegwayConnection(host, port);
 		try {
 			con.connect();
@@ -28,16 +38,10 @@ public class ComputerMain {
 			e.printStackTrace();
 			return;
 		}
+		
 		DataReceiveThread receiver = new DataReceiveThread(con, dataMon);
 		receiver.start();
 		ParameterSendThread sender = new ParameterSendThread(con, paraMon);
 		sender.start();
-		final PlotterGUI plotter = new PlotterGUI(dataMon);
-		SwingUtilities.invokeLater(new Runnable() {
-		    public void run() {
-		    	plotter.createAndShow();
-		    }
-		});
-		
 	}
 }

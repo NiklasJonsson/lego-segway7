@@ -6,13 +6,14 @@ import lejos.hardware.sensor.HiTechnicGyro;
 public class Gyroscope {
 
 	private HiTechnicGyro gyro;
+	private float[] data;
 	
 	public Gyroscope(){
 		gyro=new HiTechnicGyro(SensorPort.S3);
+		data=new float[gyro.sampleSize()];
 	}
 	
 	public double[] read(){
-		float[] data=new float[gyro.sampleSize()];
 		gyro.fetchSample(data, 0);
 		double[] ret=new double[data.length];
 		for(int i=0;i<data.length;i++)

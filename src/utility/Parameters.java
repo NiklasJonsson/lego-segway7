@@ -17,8 +17,9 @@ public class Parameters implements Cloneable, Serializable {
 	public double Lr;
 	public double Kv;
 	public boolean integratorOn;
+	public double r;
 	
-	public Parameters(double k1, double k2, double l1, double l2, double lr, double kv, boolean integratorOn) {
+	public Parameters(double k1, double k2, double l1, double l2, double lr, double kv, boolean integratorOn, double r) {
 		K1 = k1;
 		K2 = k2;
 		L1 = l1;
@@ -26,16 +27,17 @@ public class Parameters implements Cloneable, Serializable {
 		Lr = lr;
 		Kv = kv;
 		this.integratorOn = integratorOn;
+		this.r = r;
 	}
 
 	@Override
 	public Object clone() {
-		return new Parameters(K1, K2, L1, L2, Lr, Kv, integratorOn);
+		return new Parameters(K1, K2, L1, L2, Lr, Kv, integratorOn, r);
 	}
 
 	@Override
 	public String toString() {
 		return "Parameters [K1=" + K1 + ", K2=" + K2 + ", L1=" + L1 + ", L2=" + L2 + ", Lr=" + Lr + ", Kv=" + Kv
-				+ ", integratorOn=" + integratorOn + "]";
+				+ ", integratorOn=" + integratorOn + ", r=" + r + "]";
 	}
 }

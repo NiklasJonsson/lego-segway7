@@ -7,10 +7,12 @@ public class RegulatorThread extends Thread {
 	private final double[][] a = new double[2][2];
 	private final double[] b = new double[2];
 	private final double[] c = new double[2];
-	RegulatorMonitor rm;
+	private RegulatorMonitor rm;
+	private Motor m;
 	
 	public RegulatorThread(RegulatorMonitor rm){
 		this.rm=rm;
+		m = new Motor();
 	}
 
 	public void run() {
@@ -42,6 +44,14 @@ public class RegulatorThread extends Thread {
 			v = v + kv * e;
 
 			// TODO write signals
+			m.move(7000);
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 }

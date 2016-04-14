@@ -16,26 +16,28 @@ public class Parameters implements Cloneable, Serializable {
 	public double L2;
 	public double Lr;
 	public double Kv;
+	public double R;
 	public boolean integratorOn;
-	
-	public Parameters(double k1, double k2, double l1, double l2, double lr, double kv, boolean integratorOn) {
+	public Parameters(double k1, double k2, double l1, double l2, double lr, double kv, double r,
+			boolean integratorOn) {
+		super();
 		K1 = k1;
 		K2 = k2;
 		L1 = l1;
 		L2 = l2;
 		Lr = lr;
 		Kv = kv;
+		R = r;
 		this.integratorOn = integratorOn;
 	}
-
-	@Override
-	public Object clone() {
-		return new Parameters(K1, K2, L1, L2, Lr, Kv, integratorOn);
-	}
-
 	@Override
 	public String toString() {
 		return "Parameters [K1=" + K1 + ", K2=" + K2 + ", L1=" + L1 + ", L2=" + L2 + ", Lr=" + Lr + ", Kv=" + Kv
-				+ ", integratorOn=" + integratorOn + "]";
+				+ ", R=" + R + ", integratorOn=" + integratorOn + "]";
 	}
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return new Parameters(K1, K2, L1, L2, Lr, Kv, R, integratorOn);
+	}
+
 }

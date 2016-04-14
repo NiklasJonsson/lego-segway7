@@ -25,6 +25,8 @@ public class SegwayMain {
 		sender.start();
 		ParameterReceiverThread receiver = new ParameterReceiverThread(mon, con);
 		receiver.start();
+		RegulatorThread regulator = new RegulatorThread(mon);
+		regulator.start();
 	}
 
 	public static void printToScreen(String s) {

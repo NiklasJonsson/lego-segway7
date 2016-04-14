@@ -5,7 +5,6 @@ import lejos.hardware.sensor.HiTechnicAccelerometer;
 
 public class Accelerometer {
 	
-	
 	private HiTechnicAccelerometer device;
 	
 	public Accelerometer() {

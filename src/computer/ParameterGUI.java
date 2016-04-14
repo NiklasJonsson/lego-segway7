@@ -38,7 +38,7 @@ public class ParameterGUI {
 		frame.setAlwaysOnTop(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.setSize(100, 150);
+		frame.setSize(300, 500);
 
 		JButton applyButton = new JButton("Apply");
 

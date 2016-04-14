@@ -1,5 +1,6 @@
 package segway;
 
+import lejos.hardware.lcd.LCD;
 import utility.Signals;
 
 public class RegulatorThread extends Thread {
@@ -9,10 +10,12 @@ public class RegulatorThread extends Thread {
 	private final double[] c = new double[2];
 	private RegulatorMonitor rm;
 	private Motor m;
+	private Accelerometer acc;
 	
 	public RegulatorThread(RegulatorMonitor rm){
 		this.rm=rm;
 		m = new Motor();
+		acc = new Accelerometer();
 	}
 
 	public void run() {
@@ -33,6 +36,9 @@ public class RegulatorThread extends Thread {
 		double e = 0;
 		double v = 0;
 		while (!Thread.interrupted()) {
+			double[] data = acc.read();
+			double accel = data[1];
+			SegwayMain.printToScreen("0: " + data[0], "1: " + data[1], "2: " + data[2]);
 			 // TODO add more variables in signals? (v, r...)
 			Signals s = rm.getSignals();
 
@@ -47,7 +53,7 @@ public class RegulatorThread extends Thread {
 			m.move(7000);
 			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(50);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

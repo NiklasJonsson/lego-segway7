@@ -10,7 +10,10 @@ public class Accelerometer {
 	public Accelerometer() {
 		device = new HiTechnicAccelerometer(SensorPort.S2);
 	}
-	
+	/**
+	 * 
+	 * @return ret[0] is upwards/downwards acc, ret[1] is forward/backward acc and ret[2] side/side acc.
+	 */
 	public double[] read() {
 		float[] data = new float[device.sampleSize()];
 		device.fetchSample(data, 0);

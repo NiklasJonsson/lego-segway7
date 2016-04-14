@@ -38,7 +38,7 @@ public class ParameterGUI {
 		frame.setAlwaysOnTop(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.setSize(300, 500);
+		frame.setSize(400, 400);
 
 		JButton applyButton = new JButton("Apply");
 
@@ -121,7 +121,7 @@ public class ParameterGUI {
 		pane.add(rField);
 		
 		integralInputField = new JTextField();
-		pane.add(new JLabel("Integral action(0=no, 1=yes):"));
+		pane.add(new JLabel("Integral action: (0=no, 1=yes):"));
 		pane.add(integralInputField);
 		
 		kvField = new JTextField();
@@ -131,8 +131,8 @@ public class ParameterGUI {
 		return pane;
 	}
 
-//	public static void main(String[] args) {
-//		ParameterGUI gui = new ParameterGUI();
-//		gui.createAndShow();
-//	}
+		public static void main(String[] args) {
+			ParameterGUI gui = new ParameterGUI(new ParameterMonitor());
+			gui.createAndShow();
+		}
 }

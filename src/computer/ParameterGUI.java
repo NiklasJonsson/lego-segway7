@@ -4,6 +4,7 @@ package computer;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
@@ -22,7 +23,15 @@ public class ParameterGUI {
 	private JTextField lrField;
 	private JTextField integralInputField;
 	private JTextField kvField;
-
+	
+	private ParameterMonitor paraMon;
+	
+	public ParameterGUI(ParameterMonitor paraMon){
+		this.paraMon = paraMon;
+	}
+	/*
+	 * OBS! Överväg att inför SwingWorker
+	 */
 	public void createAndShow() {
 		JFrame frame = new JFrame();
 		frame.setLayout(new BorderLayout());
@@ -68,6 +77,13 @@ public class ParameterGUI {
 				
 					Parameters p = new Parameters(k1, k2, l1, l2, lr, kv, integralAction, r);
 					
+					try {
+						paraMon.newParameters(p);
+						System.out.println("Sent the following parameters to the client Monitor:" + p.toString());
+					} catch (CloneNotSupportedException error) {
+						System.out.println("Writing new parameters to the monitor, was interrupted");
+						error.printStackTrace();
+					}
 				} catch (NumberFormatException err) {
 					JOptionPane.showMessageDialog(null, "Please enter numbers in all fields", "Error",
 							JOptionPane.ERROR_MESSAGE);
@@ -115,8 +131,8 @@ public class ParameterGUI {
 		return pane;
 	}
 
-	public static void main(String[] args) {
-		ParameterGUI gui = new ParameterGUI();
-		gui.createAndShow();
-	}
+//	public static void main(String[] args) {
+//		ParameterGUI gui = new ParameterGUI();
+//		gui.createAndShow();
+//	}
 }

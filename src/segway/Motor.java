@@ -1,19 +1,22 @@
 package segway;
 
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.port.MotorPort;
+import lejos.hardware.motor.*;
+import lejos.hardware.port.*;
 
-public class Motor {
+public class Motor extends UnregulatedMotor {
 
-	private EV3LargeRegulatedMotor left;
-	private EV3LargeRegulatedMotor right;
-
-	public Motor() {
-		left = new EV3LargeRegulatedMotor(MotorPort.D);
-		right = new EV3LargeRegulatedMotor(MotorPort.A);
+	public Motor(Port portId) {
+		super(portId);
 	}
 
-	public void move(double acc) {
-
+	public void sendSignal(double u) {
+		if (u < 0) {
+			updateState(BasicMotorPort.BACKWARD);
+			u = -u;
+		} else {
+			updateState(BasicMotorPort.FORWARD);
+		}
+		u = u > 100 ? 100 : u;
+		setPower((int) Math.round(u));
 	}
 }

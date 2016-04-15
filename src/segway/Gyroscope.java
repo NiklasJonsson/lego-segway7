@@ -12,8 +12,13 @@ public class Gyroscope {
 		gyro = new HiTechnicGyro(SensorPort.S3);
 		data = new float[gyro.sampleSize()];
 	}
-
-	public double[] read() {
+	
+	/**
+	 * 
+	 * @return A double array with one value. Negative value for angular tilt backwards
+	 * positive for angular tilt forwards. Stationary disturbance of +-7 deg/s
+	 */
+	public double[] read(){
 		gyro.fetchSample(data, 0);
 		double[] ret = new double[data.length];
 		for (int i = 0; i < data.length; i++)

@@ -54,4 +54,7 @@ public class ComputerConnection {
 	public Parameters getParameters() throws ClassNotFoundException, IOException {
 		return (Parameters) in.readObject();
 	}
+	public void sendErrors(Exception e) throws IOException{
+		out.writeObject(e);
+	}
 }

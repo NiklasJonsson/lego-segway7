@@ -9,9 +9,9 @@ public class Gyroscope {
 	private float[] data;
 	public double offSet = -7.11;
 	
-	public Gyroscope(){
-		gyro=new HiTechnicGyro(SensorPort.S3);
-		data=new float[gyro.sampleSize()];
+	public Gyroscope() {
+		gyro = new HiTechnicGyro(SensorPort.S3);
+		data = new float[gyro.sampleSize()];
 	}
 	
 	/**
@@ -21,9 +21,9 @@ public class Gyroscope {
 	 */
 	public double[] read(){
 		gyro.fetchSample(data, 0);
-		double[] ret=new double[data.length];
-		for(int i=0;i<data.length;i++)
-			ret[i]=data[i];
+		double[] ret = new double[data.length];
+		for (int i = 0; i < data.length; i++)
+			ret[i] = data[i];
 		return ret;
 	}
 }

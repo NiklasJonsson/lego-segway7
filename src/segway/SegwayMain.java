@@ -34,7 +34,7 @@ public class SegwayMain {
 		
 	}
 
-	public static void printToScreen(String s, String s2, String s3, String s4) {
+	public static void printToScreen(String s, String s2, String s3, String s4) { 		
 		//final int width = 18;
 		LCD.drawString(s, 0, 0);
 		LCD.drawString(s2, 0, 1);

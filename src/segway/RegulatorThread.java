@@ -45,10 +45,11 @@ public class RegulatorThread extends Thread {
 			SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0]);
 			 // TODO add more variables in signals? (v, r...)
 			Signals s = rm.getSignals();
-
+			s=new Signals(u, y, x1, x2, l1, l2, lr);
+					
 			u = lr * r + s.l1 * s.x1 + s.l2 * s.x2 - v;
-			e = y - x2;
 			x1 = a[0][0] * s.x1 + a[0][1] * s.x2 + b[0] * u + k1 * e;
+			e = y - x2;
 			x2 = a[1][0] * s.x1 + a[1][1] * s.x2 + b[1] * u + k2 * e;
 
 			v = v + kv * e;

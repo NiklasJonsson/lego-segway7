@@ -33,12 +33,12 @@ public class RegulatorThread extends Thread {
 			y = y + velData[0] * ((double) h)/1000.0; // We have to integrate to get y
 			regulator.updateState(u, y);
 			SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0], "u: " + u);
-
 			
 			try {
 				Thread.sleep(h);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
+
 				Thread.currentThread().interrupt();
 				break;
 			}

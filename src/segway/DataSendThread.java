@@ -27,6 +27,10 @@ public class DataSendThread extends Thread {
 				Thread.sleep(1000);
 			} catch (IOException | InterruptedException e) {
 				done = true;
+				try {
+					con.sendErrors(e);
+				} catch (IOException e1) {
+				}
 				e.printStackTrace();
 			}
 		}

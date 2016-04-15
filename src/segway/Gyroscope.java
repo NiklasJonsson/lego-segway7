@@ -7,7 +7,8 @@ public class Gyroscope {
 
 	private HiTechnicGyro gyro;
 	private float[] data;
-
+	public double offSet = -7.11;
+	
 	public Gyroscope() {
 		gyro = new HiTechnicGyro(SensorPort.S3);
 		data = new float[gyro.sampleSize()];

@@ -6,7 +6,7 @@ import lejos.hardware.sensor.HiTechnicAccelerometer;
 public class Accelerometer {
 	
 	private HiTechnicAccelerometer device;
-	
+	public double offSet = 0.13;
 	public Accelerometer() {
 		device = new HiTechnicAccelerometer(SensorPort.S2);
 	}

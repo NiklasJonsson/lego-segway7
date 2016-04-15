@@ -10,28 +10,25 @@ import lejos.utility.Delay;
 
 public class SegwayMain {
 	static int currentRow = 0;
-
-	public static void main(String[] args) {
+	
+	public static void main(String[] args) throws IOException {
 		printToScreen("SegwayMain...");
-		
 		RegulatorMonitor mon = new RegulatorMonitor();
 		RegulatorThread regulator = new RegulatorThread(mon);
-		regulator.start();
-		
 		int port = 1234;
 		ComputerConnection con = new ComputerConnection(port);
-		try {
+		
+		try{
+			regulator.start();	
 			con.connect();
-		} catch (IOException e) {
-			e.printStackTrace();
+			DataSendThread sender = new DataSendThread(con, mon);
+			sender.start();
+			ParameterReceiverThread receiver = new ParameterReceiverThread(mon, con);
+			receiver.start();
+		}catch (Exception e) {
+			con.sendErrors(e);
 			return;
 		}
-		
-		DataSendThread sender = new DataSendThread(con, mon);
-		sender.start();
-		ParameterReceiverThread receiver = new ParameterReceiverThread(mon, con);
-		receiver.start();
-		
 	}
 
 	public static void printToScreen(String s1, String s2, String s3, String s4, String s5) { 		
@@ -54,6 +51,4 @@ public class SegwayMain {
 		}
 		Delay.msDelay(500);
 	}
-	
-	
 }

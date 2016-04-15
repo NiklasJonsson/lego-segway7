@@ -1,5 +1,6 @@
 package segway;
 
+import utility.Parameters;
 import utility.Signals;
 
 public class RegulatorThread extends Thread {
@@ -27,15 +28,6 @@ public class RegulatorThread extends Thread {
 		double u = 0;
 		double x1 = 0;
 		double x2 = 0;
-		double r = 0;
-
-		double lr = 0.1549;
-		double l1 = 4.0749;
-		double l2 = 0.2543;
-
-		double k1 = 1.3704;
-		double k2 = 74.2533;
-		double kv = 60.9601;
 
 		double e = 0;
 		double v = 0;
@@ -47,24 +39,23 @@ public class RegulatorThread extends Thread {
 			
 			SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0]);
 			 // TODO add more variables in signals? (v, r...)
-			Signals s = rm.getSignals();
-			s=new Signals(u, y, x1, x2, l1, l2, lr);
+			
+			Parameters p = rm.getParameters();
 					
-			u = lr * r + s.l1 * s.x1 + s.l2 * s.x2 - v;
+			u = p.Lr * p.r + p.L1 * x1 +p.L2 * x2 - v;
+			
+			m.sendSignal(u);
+			
 			e = y - x2;
 			e=0;
+			double old_x1 = x1;
+			x1 = a[0][0] * x1 + a[0][1] * x2 + b[0] * u + p.K1 * e;
+			x2 = a[1][0] * old_x1 + a[1][1] * x2 + b[1] * u + p.K2 * e;
 
+			v = v + p.Kv * e;
+
+			rm.setSignals(new Signals(u, y, x1, x2, p.L1, p.L2, p.Lr));
 			
-			x1 = a[0][0] * s.x1 + a[0][1] * s.x2 + b[0] * u + k1 * e;
-			e = y - x2;
-			x2 = a[1][0] * s.x1 + a[1][1] * s.x2 + b[1] * u + k2 * e;
-
-			v = v + kv * e;
-
-			// TODO write signals
-			m.sendSignal(u);
-			i *= -1;
-
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e1) {

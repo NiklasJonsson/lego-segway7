@@ -25,6 +25,10 @@ public class ParameterReceiverThread extends Thread{
 				mon.newParameters(params);
 			} catch (ClassNotFoundException | IOException e) {
 				done = true;
+				try {
+					con.sendErrors(e);
+				} catch (IOException e1) {
+				}
 				e.printStackTrace();
 			} 
 			

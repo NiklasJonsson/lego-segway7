@@ -46,7 +46,7 @@ public class RegulatorThread extends Thread {
 			double accel = accData[1];
 			double[] velData = gyro.read();
 			
-			SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0]);
+			SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + (velData[0] - gyro.offSet));
 			 // TODO add more variables in signals? (v, r...)
 			Signals s = rm.getSignals();
 			s=new Signals(u, y, x1, x2, l1, l2, lr);
@@ -69,8 +69,8 @@ public class RegulatorThread extends Thread {
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				
 			}
 		}
 	}

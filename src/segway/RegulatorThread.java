@@ -1,6 +1,5 @@
 package segway;
 
-import lejos.hardware.lcd.LCD;
 import utility.Signals;
 
 public class RegulatorThread extends Thread {

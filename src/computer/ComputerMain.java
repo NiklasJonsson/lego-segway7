@@ -36,6 +36,7 @@ public class ComputerMain {
 			try {
 				connected = con.connect();
 			} catch (IOException e) {
+				e.printStackTrace();
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e1) {

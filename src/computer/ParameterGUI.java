@@ -1,5 +1,6 @@
 package computer;
- import utility.*;
+
+import utility.*;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -23,12 +24,13 @@ public class ParameterGUI {
 	private JTextField lrField;
 	private JTextField integralInputField;
 	private JTextField kvField;
-	
+
 	private ParameterMonitor paraMon;
-	
-	public ParameterGUI(ParameterMonitor paraMon){
+
+	public ParameterGUI(ParameterMonitor paraMon) {
 		this.paraMon = paraMon;
 	}
+
 	/*
 	 * OBS! Överväg att inför SwingWorker
 	 */
@@ -38,7 +40,7 @@ public class ParameterGUI {
 		frame.setAlwaysOnTop(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.setSize(100, 150);
+		frame.setSize(400, 400);
 
 		JButton applyButton = new JButton("Apply");
 
@@ -61,22 +63,18 @@ public class ParameterGUI {
 					r = Double.parseDouble(rField.getText());
 					kv = Double.parseDouble(kvField.getText());
 					integralInput = Double.parseDouble(integralInputField.getText());
-					if(integralInput<=0){
-						integralAction = false;
-					}else{
-						integralAction = true;
-					}
+					integralAction = (integralInput > 0);
 					System.out.println("l1:" + l1);
 					System.out.println("l2" + l2);
 					System.out.println("lr" + lr);
 					System.out.println("k1" + k1);
-					System.out.println("k2" +k2);
-					System.out.println("r" +r);
-					System.out.println("integralaction" +integralAction);
-					System.out.println("kv" +kv);
-				
+					System.out.println("k2" + k2);
+					System.out.println("r" + r);
+					System.out.println("integralaction" + integralAction);
+					System.out.println("kv" + kv);
+
 					Parameters p = new Parameters(k1, k2, l1, l2, lr, kv, integralAction, r);
-					
+
 					try {
 						paraMon.newParameters(p);
 						System.out.println("Sent the following parameters to the client Monitor:" + p.toString());
@@ -107,23 +105,23 @@ public class ParameterGUI {
 		lrField = new JTextField();
 		pane.add(new JLabel("Lr:"));
 		pane.add(lrField);
-		
+
 		k1Field = new JTextField();
 		pane.add(new JLabel("k1:"));
 		pane.add(k1Field);
-		
+
 		k2Field = new JTextField();
 		pane.add(new JLabel("k2:"));
 		pane.add(k2Field);
-		
+
 		rField = new JTextField();
 		pane.add(new JLabel("r:"));
 		pane.add(rField);
-		
+
 		integralInputField = new JTextField();
-		pane.add(new JLabel("Integral action(0=no, 1=yes):"));
+		pane.add(new JLabel("Integral action: (0=no, 1=yes):"));
 		pane.add(integralInputField);
-		
+
 		kvField = new JTextField();
 		pane.add(new JLabel("kv:"));
 		pane.add(kvField);
@@ -131,8 +129,8 @@ public class ParameterGUI {
 		return pane;
 	}
 
-//	public static void main(String[] args) {
-//		ParameterGUI gui = new ParameterGUI();
-//		gui.createAndShow();
-//	}
+	public static void main(String[] args) {
+		ParameterGUI gui = new ParameterGUI(new ParameterMonitor());
+		gui.createAndShow();
+	}
 }

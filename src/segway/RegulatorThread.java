@@ -11,11 +11,14 @@ public class RegulatorThread extends Thread {
 	private RegulatorMonitor rm;
 	private Motors m;
 	private Accelerometer acc;
-
-	public RegulatorThread(RegulatorMonitor rm) {
-		this.rm = rm;
+	private Gyroscope gyro;
+	
+	
+	public RegulatorThread(RegulatorMonitor rm){
+		this.rm=rm;
 		m = new Motors();
 		acc = new Accelerometer();
+		gyro = new Gyroscope();
 	}
 
 	public void run() {
@@ -37,10 +40,12 @@ public class RegulatorThread extends Thread {
 		double v = 0;
 		int i = 1;
 		while (!Thread.interrupted()) {
-			double[] data = acc.read();
-			double accel = data[1];
-			SegwayMain.printToScreen("0: " + data[0], "1: " + data[1], "2: " + data[2]);
-			// TODO add more variables in signals? (v, r...)
+			double[] accData = acc.read();
+			double accel = accData[1];
+			double[] velData = gyro.read();
+			
+			SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0]);
+			 // TODO add more variables in signals? (v, r...)
 			Signals s = rm.getSignals();
 
 			u = lr * r + s.l1 * s.x1 + s.l2 * s.x2 - v;

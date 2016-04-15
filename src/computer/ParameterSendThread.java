@@ -21,7 +21,7 @@ public class ParameterSendThread extends Thread {
 		while(!done) {
 			try {
 				Parameters params = paraMon.getParameters();
-				System.out.println("Sending parameters: " + params);
+				System.out.println("Sending parameters: " + params.toString());
 				con.sendParameters(params);
 			} catch (InterruptedException | IOException e) {
 				done = true;

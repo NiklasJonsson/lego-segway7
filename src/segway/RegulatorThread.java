@@ -9,13 +9,14 @@ public class RegulatorThread extends Thread {
 	private final double[] b;
 	private final double[] c;
 	private RegulatorMonitor rm;
-	private Motor m;
+	private Motors m;
 	private Accelerometer acc;
 	private Gyroscope gyro;
 	
+	
 	public RegulatorThread(RegulatorMonitor rm){
 		this.rm=rm;
-		m = new Motor();
+		m = new Motors();
 		acc = new Accelerometer();
 		gyro = new Gyroscope();
 		
@@ -40,6 +41,7 @@ public class RegulatorThread extends Thread {
 
 		double e = 0;
 		double v = 0;
+		int i = 1;
 		while (!Thread.interrupted()) {
 			double[] accData = acc.read();
 			double accel = accData[1];
@@ -51,14 +53,16 @@ public class RegulatorThread extends Thread {
 
 			u = lr * r + s.l1 * s.x1 + s.l2 * s.x2 - v;
 			e = y - x2;
+			e=0;
 			x1 = a[0][0] * s.x1 + a[0][1] * s.x2 + b[0] * u + k1 * e;
 			x2 = a[1][0] * s.x1 + a[1][1] * s.x2 + b[1] * u + k2 * e;
 
 			v = v + kv * e;
 
 			// TODO write signals
-			m.move(7000);
-			
+			m.sendSignal(u);
+			i *= -1;
+
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e1) {

@@ -26,7 +26,7 @@ public class RegulatorThread extends Thread {
 			double[] accData = acc.read();
 			double[] velData = gyro.read();
 
-			SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + (velData[0] - gyro.offSet));
+			SegwayMain.printToScreen("0: " + accData[0], "Acc for x: " + (accData[1] - acc.offSet), "2: " + accData[2], "Gyro: " + (velData[0] - gyro.offSet));
 			
 			u = regulator.calculateSignal(accData, velData[0]);
 			m.sendSignal(u);

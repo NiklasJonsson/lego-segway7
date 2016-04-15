@@ -16,7 +16,6 @@ public class Motors {
 	}
 
 	public void sendSignal(double u) {
-		SegwayMain.printToScreen("" + u);
 		left.setPower((int) Math.round(u));
 		right.setPower((int) Math.round(u));
 	}

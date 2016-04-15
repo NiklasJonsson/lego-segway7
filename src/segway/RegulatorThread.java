@@ -4,6 +4,7 @@ import utility.Parameters;
 import utility.Signals;
 
 public class RegulatorThread extends Thread {
+	private final static long h = 50;
 
 	private Motors m;
 	private Accelerometer acc;
@@ -26,14 +27,16 @@ public class RegulatorThread extends Thread {
 			double[] accData = acc.read();
 			double[] velData = gyro.read();
 			
-			SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0]);
-			
 			u = regulator.calculateSignal(accData, velData[0]);
 			m.sendSignal(u);
+			
+			y = y + velData[0] * ((double) h)/1000.0; // We have to integrate to get y
 			regulator.updateState(u, y);
+			SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0], "u: " + u);
+
 			
 			try {
-				Thread.sleep(50);
+				Thread.sleep(h);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 				Thread.currentThread().interrupt();

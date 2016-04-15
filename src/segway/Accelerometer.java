@@ -19,7 +19,7 @@ public class Accelerometer {
 		device.fetchSample(data, 0);
 		double[] ret = new double[device.sampleSize()];
 		for(int i = 0; i < data.length; ++i) {
-			ret[i] = data[i];
+			ret[i] = data[i] - offSet;
 		}
 		return ret;
 	}

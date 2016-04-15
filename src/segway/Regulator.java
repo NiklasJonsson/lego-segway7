@@ -1,7 +1,5 @@
 package segway;
 
-import utility.Signals;
-
 public interface Regulator {
 	
 	/**

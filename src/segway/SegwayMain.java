@@ -34,13 +34,13 @@ public class SegwayMain {
 		
 	}
 
-	public static void printToScreen(String s, String s2, String s3, String s4) { 		
+	public static void printToScreen(String s1, String s2, String s3, String s4, String s5) { 		
 		//final int width = 18;
-		LCD.drawString(s, 0, 0);
+		LCD.drawString(s1, 0, 0);
 		LCD.drawString(s2, 0, 1);
 		LCD.drawString(s3, 0, 2);
 		LCD.drawString(s4, 0, 3);
-
+		LCD.drawString(s5, 0, 4);
 	}
 	public static void printToScreen(String s) {
 		//final int width = 18;

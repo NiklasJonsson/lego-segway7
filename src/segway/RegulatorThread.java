@@ -4,9 +4,9 @@ import utility.Signals;
 
 public class RegulatorThread extends Thread {
 
-	private final double[][] a = new double[2][2];
-	private final double[] b = new double[2];
-	private final double[] c = new double[2];
+	private final double[][] a;
+	private final double[] b;
+	private final double[] c;
 	private RegulatorMonitor rm;
 	private Motors m;
 	private Accelerometer acc;
@@ -18,6 +18,9 @@ public class RegulatorThread extends Thread {
 		m = new Motors();
 		acc = new Accelerometer();
 		gyro = new Gyroscope();
+		
+		a=new double[][] {{0, 1}, {47.6757, 0}};
+		b=new double[] {0, 12.1622};
 	}
 
 	public void run() {
@@ -27,13 +30,13 @@ public class RegulatorThread extends Thread {
 		double x2 = 0;
 		double r = 0;
 
-		double lr = 0;
-		double l1 = 0;
-		double l2 = 0;
+		double lr = 0.1549;
+		double l1 = 4.0749;
+		double l2 = 0.2543;
 
-		double k1 = 0;
-		double k2 = 0;
-		double kv = 0;
+		double k1 = 1.3704;
+		double k2 = 74.2533;
+		double kv = 60.9601;
 
 		double e = 0;
 		double v = 0;

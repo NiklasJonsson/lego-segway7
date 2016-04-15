@@ -114,20 +114,20 @@ public class ParameterGUI {
 		pane.add(lrField);
 
 		k1Field = new JTextField();
-		pane.add(label("k1:"));
+		pane.add(label("K1:"));
 		pane.add(k1Field);
 
 		k2Field = new JTextField();
-		pane.add(label("k2:"));
+		pane.add(label("K2:"));
 		pane.add(k2Field);
-
-		rField = new JTextField();
-		pane.add(label("r:"));
-		pane.add(rField);
 		
 		kvField = new JTextField();
-		pane.add(label("kv:"));
+		pane.add(label("Kv:"));
 		pane.add(kvField);
+
+		rField = new JTextField();
+		pane.add(label("R:"));
+		pane.add(rField);
 
 		integralInputField = new JTextField();
 		pane.add(label("Integral action:"));

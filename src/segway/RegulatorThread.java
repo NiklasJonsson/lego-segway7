@@ -13,13 +13,15 @@ public class RegulatorThread extends Thread {
 	private Gyroscope gyro;
 	private Regulator regulator;
 	private ComputerConnection con;
+	private boolean hasDebugConnection;
 
-	public RegulatorThread(RegulatorMonitor rm, ComputerConnection con) {
-		this.con = con;
+public RegulatorThread(RegulatorMonitor rm, ComputerConnection con) {
+	this.con = con;
 		this.regulator = new ObserverRegulator(rm);
 		m = new Motors();
 		acc = new Accelerometer();
 		gyro = new Gyroscope();
+		hasDebugConnection = false;
 	}
 
 	public void run() {
@@ -53,5 +55,11 @@ public class RegulatorThread extends Thread {
 				break;
 			}
 		}
+
+	}
+
+	public void addDebugConnection(ComputerConnection con2) {
+		con = con2;
+		hasDebugConnection = true;
 	}
 }

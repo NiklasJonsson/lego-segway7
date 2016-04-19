@@ -7,20 +7,21 @@ public class RegulatorMonitor {
 	private Signals signals;
 	private Parameters params;
 
-	final static double def_lr = 0.1549;
-	final static double def_l1 = 4.0749;
-	final static double def_l2 = 0.2543;
+	final static double DEFAULT_LR = 0.1549;
+	final static double DEFAULT_L1 = 4.0749;
+	final static double DEFAULT_L2 = 0.2543;
 
-	final static double def_k1 = 1.3704;
-	final static double def_k2 = 74.2533;
-	final static double def_kv = 60.9601;
+	final static double DEFAULT_K1 = 1.3704;
+	final static double DEFAULT_K2 = 5.2533;//74.2533
+	final static double DEFAULT_KV = 4.9601;//60.9601
 
-	final static boolean def_integratorOn = false;
+	final static boolean DEFAULT_INTEGRATOR_ON = false;
 
-	final static double def_r = 0;
+	final static double DEFAULT_R = 0;
 
 	public RegulatorMonitor() {
-		params = new Parameters(def_k1, def_k2, def_l1, def_l2, def_lr, def_kv, def_integratorOn, def_r);
+		params = new Parameters(DEFAULT_K1, DEFAULT_K2, DEFAULT_L1, DEFAULT_L2, DEFAULT_LR, DEFAULT_KV,
+				DEFAULT_INTEGRATOR_ON, DEFAULT_R);
 	}
 
 	public synchronized Signals getSignals() {
@@ -29,7 +30,6 @@ public class RegulatorMonitor {
 
 	public synchronized void newParameters(Parameters params) {
 		this.params = (Parameters) params.clone();
-
 	}
 
 	public synchronized Parameters getParameters() {

@@ -23,12 +23,12 @@ public class DataSendThread extends Thread {
 		while (!done) {
 			try {
 				Signals signals = mon.getSignals();
-				con.sendSignals(signals);
+				con.send(signals);
 				Thread.sleep(1000);
 			} catch (IOException | InterruptedException e) {
 				done = true;
 				try {
-					con.sendErrors(e);
+					con.send(e);
 				} catch (IOException e1) {
 				}
 				e.printStackTrace();

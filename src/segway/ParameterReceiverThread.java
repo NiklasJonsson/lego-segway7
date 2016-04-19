@@ -26,7 +26,7 @@ public class ParameterReceiverThread extends Thread{
 			} catch (ClassNotFoundException | IOException e) {
 				done = true;
 				try {
-					con.sendErrors(e);
+					con.send(e);
 				} catch (IOException e1) {
 				}
 				e.printStackTrace();

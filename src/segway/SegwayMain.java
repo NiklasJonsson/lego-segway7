@@ -1,9 +1,6 @@
 package segway;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
@@ -14,19 +11,19 @@ public class SegwayMain {
 	public static void main(String[] args) throws IOException {
 		printToScreen("SegwayMain...");
 		RegulatorMonitor mon = new RegulatorMonitor();
-		RegulatorThread regulator = new RegulatorThread(mon);
 		int port = 1234;
 		ComputerConnection con = new ComputerConnection(port);
+		RegulatorThread regulator = new RegulatorThread(mon, con);
 		
 		try{
-			regulator.start();	
+			regulator.start();
 			con.connect();
 			DataSendThread sender = new DataSendThread(con, mon);
 			sender.start();
 			ParameterReceiverThread receiver = new ParameterReceiverThread(mon, con);
 			receiver.start();
 		}catch (Exception e) {
-			con.sendErrors(e);
+			con.send(e);
 			return;
 		}
 	}

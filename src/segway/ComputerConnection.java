@@ -47,14 +47,11 @@ public class ComputerConnection {
 		serverSocket.close();
 	}
 
-	public void sendSignals(Signals signals) throws IOException {
-		out.writeObject(signals);
+	public void send(Object o) throws IOException {
+		out.writeObject(o);
 	}
 
 	public Parameters getParameters() throws ClassNotFoundException, IOException {
 		return (Parameters) in.readObject();
-	}
-	public void sendErrors(Exception e) throws IOException{
-		out.writeObject(e);
 	}
 }

@@ -46,7 +46,7 @@ public class SegwayConnection {
 		out.writeObject(parameters);
 	}
 	 
-	public Signals getSignals() throws IOException, ClassNotFoundException {
-		return (Signals) in.readObject();
+	public Object getSignals() throws IOException, ClassNotFoundException {
+		return in.readObject();
 	}
 }

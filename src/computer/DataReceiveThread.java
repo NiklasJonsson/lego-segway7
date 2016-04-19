@@ -1,7 +1,7 @@
 package computer;
 
 import java.io.IOException;
-
+import java.lang.Throwable;
 import utility.Signals;
 
 public class DataReceiveThread extends Thread {
@@ -18,7 +18,13 @@ public class DataReceiveThread extends Thread {
 		boolean done = false;
 		while(!done) {
 			try {
-				mon.newData(con.getSignals());
+				Object o = con.getSignals();
+				if(o instanceof Signals){
+					mon.newData((Signals) o);	
+				}else{
+				Exception e = (Exception) o;
+				e.printStackTrace();
+				}	
 			} catch (ClassNotFoundException | IOException e) {
 				done = true;
 				e.printStackTrace();

@@ -21,6 +21,7 @@ public class SegwayMain {
 		try{
 			regulator.start();	
 			con.connect();
+			regulator.addDebugConnection(con);
 			DataSendThread sender = new DataSendThread(con, mon);
 			sender.start();
 			ParameterReceiverThread receiver = new ParameterReceiverThread(mon, con);

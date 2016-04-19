@@ -16,7 +16,7 @@ public class Motor extends UnregulatedMotor {
 		} else {
 			updateState(BasicMotorPort.FORWARD);
 		}
-		u = u >= 80  ? 80 : u;
+		u = u > 99  ? 99 : u;
 		setPower((int) Math.round(u));
 	}
 }

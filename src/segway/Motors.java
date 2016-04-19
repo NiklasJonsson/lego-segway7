@@ -16,8 +16,8 @@ public class Motors {
 	}
 
 	public void sendSignal(double u) {
-		left.setPower((int) Math.round(u));
-		right.setPower((int) Math.round(u));
+		left.sendSignal(u);
+		right.sendSignal(u);
 	}
 
 }

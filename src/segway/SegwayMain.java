@@ -6,7 +6,8 @@ import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 
 public class SegwayMain {
-	static int currentRow = 0;
+	static final int START_ROW = 6;
+	static int currentRow = START_ROW;
 	
 	public static void main(String[] args) throws IOException {
 		printToScreen("SegwayMain...");
@@ -42,8 +43,8 @@ public class SegwayMain {
 		int rowCount = 6;
 		LCD.drawString(s, 0, currentRow);
 		if (currentRow == rowCount) {
-			LCD.clear(0);
-			currentRow = 0;
+			LCD.clear(START_ROW);
+			currentRow = START_ROW;
 		} else {
 			currentRow++;
 		}

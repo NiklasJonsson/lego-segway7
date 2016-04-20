@@ -17,9 +17,10 @@ public class Signals implements Cloneable, Serializable {
 	public double l1;
 	public double l2;
 	public double lr;
+	public double r;
 
 
-	public Signals(double u, double y, double x1, double x2, double l1, double l2, double lr) {
+	public Signals(double u, double y, double x1, double x2, double l1, double l2, double lr, double r) {
 		this.u = u;
 		this.y = y;
 		this.x1 = x1;
@@ -27,17 +28,18 @@ public class Signals implements Cloneable, Serializable {
 		this.l1 = l1;
 		this.l2 = l2;
 		this.lr = lr;
+		this.r = r;
 	}
 
 	@Override
 	public Object clone() {
-		return new Signals(u,y,x1,x2,l1,l2,lr);
+		return new Signals(u,y,x1,x2,l1,l2,lr,r);
 	}
 	
 	@Override
 	public String toString() {
 		return "Signals [u=" + u + ", y=" + y + ", x1=" + x1 + ", x2=" + x2 + ", l1=" + l1 + ", l2=" + l2 + ", lr=" + lr
-				+ "]";
+				+ ", r=" + r + "]";
 	}
 	
 }

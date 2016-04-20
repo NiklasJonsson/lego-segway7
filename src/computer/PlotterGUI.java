@@ -1,52 +1,64 @@
 package computer;
 
-import java.awt.GridBagLayout;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.JFrame;
+import javax.swing.SwingWorker;
 
-import SimEnvironment.Plotter;
-import SimEnvironment.VirtualProcess;
-import se.lth.control.*;
 import se.lth.control.plot.PlotterPanel;
+import utility.Signals;
 
 public class PlotterGUI {
-	
+
 	// Signals: u, y, r
 	private static final int NBR_OF_SIGNALS = 5;
-	private static final int PLOTTER_PRIORITY = Thread.NORM_PRIORITY; // TODO Maybe change this?
-	
+	private static final int PLOTTER_PRIORITY = Thread.NORM_PRIORITY; // TODO
+																		// Maybe
+																		// change
+																		// this?
+
 	private static final int Y_AXIS_RANGE = 60;
 	private static final int Y_AXIS_BOTTOM = -30;
 	private static final int Y_AXIS_DIV_TICKS = 2;
 	private static final int Y_AXIS_DIV_GRID = 2;
-	
+
 	private static final int X_AXIS_RANGE = 10;
 	private static final int X_AXIS_DIV_TICKS = 5;
 	private static final int X_AXIS_DIV_GRID = 5;
-	
+
 	private static final int PLOTTER_UPDATE_FREQ = 10;
-	
+
 	private JFrame mainFrame;
 	private DataMonitor mon;
+	private PlotterPanel signalsPanel;
 
 	public PlotterGUI(DataMonitor mon) {
 		this.mon = mon;
 	}
 
 	public void createAndShow() {
-		//PlotterPanel ctrl = new PlotterPanel(NBR_OF_PARAMETERS, PLOTTER_PRIORITY);
-		PlotterPanel signalsPanel = new PlotterPanel(NBR_OF_SIGNALS, PLOTTER_PRIORITY);
-		
+		// PlotterPanel ctrl = new PlotterPanel(NBR_OF_PARAMETERS,
+		// PLOTTER_PRIORITY);
+		signalsPanel = new PlotterPanel(NBR_OF_SIGNALS, PLOTTER_PRIORITY);
+
 		signalsPanel.setYAxis(Y_AXIS_RANGE, Y_AXIS_BOTTOM, Y_AXIS_DIV_TICKS, Y_AXIS_DIV_GRID);
 		signalsPanel.setXAxis(X_AXIS_RANGE, X_AXIS_DIV_TICKS, X_AXIS_DIV_GRID);
 		signalsPanel.setUpdateFreq(PLOTTER_UPDATE_FREQ);
-		JFrame frame = new JFrame("Segway Control");
-		frame.getContentPane().add(signalsPanel);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.getContentPane().add(plotter.getPanel());
+		JFrame frame = new JFrame("Segway Control");
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(signalsPanel);
+
 		frame.pack();
 		frame.setVisible(true);
+		// Second Class parameter (Integer) is not used
+		signalsPanel.start();
+		SignalFetcher fetcher = new SignalFetcher();
+		fetcher.execute();
 	}
 
 	public static void main(String[] args) {
@@ -54,15 +66,41 @@ public class PlotterGUI {
 		p.createAndShow();
 	}
 
-	@Override
-	public double[] computeOutput(double[] state, double[] input) {
-		// TODO Auto-generated method stub
-		return new double[] { state[0], state[1] };
-	}
+	private class SignalFetcher extends SwingWorker<Integer, Signals> {
+		private long startTime;
 
-	@Override
-	public double[] updateState(double[] state, double[] input, double h) {
-		// TODO Auto-generated method stub
-		return new double[] { state[0], state[1], state[2] };
+		/**
+		 * Called by a regular thread, not EDT Should not exit since we do not
+		 * want to stop fetching signals
+		 */
+		@Override
+		public Integer doInBackground() throws Exception {
+			startTime = System.currentTimeMillis();
+			while (true) {
+				publish(mon.readData());
+			}
+		}
+
+		/**
+		 * Called by the EDT to process all the elements published in
+		 * doInBackground()
+		 */
+		@Override
+		public void process(List<Signals> signalPackets) {
+			if (signalsPanel != null) {
+				for (Signals s : signalPackets) {
+					System.out.println(s.toString());
+					signalsPanel.putData((double) (System.currentTimeMillis() - startTime) / 1000.0, s.y, s.r, s.u,
+							s.y - s.r);
+				}
+			}
+		};
+
+		/**
+		 * Not used, thread will never exit
+		 */
+		@Override
+		public void done() {
+		}
 	}
 }

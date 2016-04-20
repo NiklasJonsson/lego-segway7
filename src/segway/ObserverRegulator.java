@@ -35,7 +35,7 @@ public class ObserverRegulator implements Regulator {
 
 		v = v + p.Kv * e;
 
-		rm.setSignals(new Signals(u, y, x1, x2, p.L1, p.L2, p.Lr));
+		rm.setSignals(new Signals(u, y, x1, x2, p.L1, p.L2, p.Lr, p.r));
 	}
 
 }

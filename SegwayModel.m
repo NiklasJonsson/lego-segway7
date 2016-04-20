@@ -7,13 +7,12 @@ w = 0.1;
 
 gamma=0; %rotational friction
 J=m*(l^2+w^2)/12+(l/2)^2*m; %mass moment of inertia of the pendulum 
-Jt=J+m*l^2; %TODO look at why we do this
 h=0.05; %sampling interval
 p=[-1+1i -1-1i]; %continous time poles
 pd=exp(p*h);
 
-A=[0 1; m*g*l/Jt -gamma/Jt]; %I think A(2, 1) is too big, probably because Jt is too small. mgl=0.5, but then we divide by Jt, which is small, and suddenly it's 37
-B=[0;l/Jt]; %B(2) would also be more resonable if Jt was bigger
+A=[0 1; m*g*l/t -gamma/J]; %I think A(2, 1) is too big, probably because Jt is too small. mgl=0.5, but then we divide by Jt, which is small, and suddenly it's 37J
+B=[0;l/J]; %B(2) would also be more resonable if Jt was bigger
 C=[1 0];
 D=0;
 

@@ -7,13 +7,13 @@ public class RegulatorMonitor {
 	private Signals signals;
 	private Parameters params;
 
-	final static double DEFAULT_LR = 0.1549;
-	final static double DEFAULT_L1 = 4.0749;
-	final static double DEFAULT_L2 = 0.2543;
+	final static double DEFAULT_LR = 0.0408;
+	final static double DEFAULT_L1 = 3.9608;
+	final static double DEFAULT_L2 = 0.1349;
 
-	final static double DEFAULT_K1 = 1.3704;
-	final static double DEFAULT_K2 = 5.2533;//74.2533
-	final static double DEFAULT_KV = 4.9601;//60.9601
+	final static double DEFAULT_K1 = 1.0074;
+	final static double DEFAULT_K2 = 14.7725;// 74.2533
+	final static double DEFAULT_KV = 0.0643;// 60.9601
 
 	final static boolean DEFAULT_INTEGRATOR_ON = false;
 

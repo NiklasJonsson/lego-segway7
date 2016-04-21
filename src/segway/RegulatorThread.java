@@ -31,8 +31,8 @@ public class RegulatorThread extends Thread {
 				double[] accData = acc.read();
 				double[] velData = gyro.read();
 
-				u = regulator.calculateSignal(accData, velData[0]);
-				m.sendSignal(u);
+				u = Motors.limit(regulator.calculateSignal(accData, velData[0]));
+				m.sendSignal((int) u);
 
 				y = y + velData[0] * ((double) h) / 1000.0; // We have to
 															// integrate to get

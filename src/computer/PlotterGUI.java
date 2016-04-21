@@ -25,7 +25,7 @@ public class PlotterGUI {
 	private static final int Y_AXIS_DIV_TICKS = 2;
 	private static final int Y_AXIS_DIV_GRID = 2;
 
-	private static final int X_AXIS_RANGE = 10;
+	private static final int X_AXIS_RANGE = 15;
 	private static final int X_AXIS_DIV_TICKS = 5;
 	private static final int X_AXIS_DIV_GRID = 5;
 
@@ -90,8 +90,8 @@ public class PlotterGUI {
 			if (signalsPanel != null) {
 				for (Signals s : signalPackets) {
 					System.out.println(s.toString());
-					signalsPanel.putData((double) (System.currentTimeMillis() - startTime) / 1000.0, s.y, s.r, s.u,
-							s.y - s.r);
+					signalsPanel.putData((double) (System.currentTimeMillis() - startTime) / 1000.0, s.y, s.parameters.r, s.u,
+							s.y - s.parameters.r);
 				}
 			}
 		};

@@ -1,9 +1,6 @@
 package segway;
 
-import lejos.hardware.motor.UnregulatedMotor;
-import lejos.hardware.port.BasicMotorPort;
 import lejos.hardware.port.MotorPort;
-import lejos.hardware.port.Port;
 
 public class Motors {
 	
@@ -15,9 +12,18 @@ public class Motors {
 		right = new Motor(MotorPort.A);
 	}
 
-	public void sendSignal(double u) {
+	public void sendSignal(int u) {
 		left.sendSignal(u);
 		right.sendSignal(u);
+	}
+	
+	public static int limit(double u) {
+		if (u > 99) {
+			u = 99;
+		} else if (u < -99){
+			u = -99;
+		}
+		return (int) Math.round(u);
 	}
 
 }

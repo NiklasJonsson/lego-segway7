@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 
+import utility.Signals;
+
 public class ComputerMain {
 	static final int DEF_PORT = 1234;
 	static final String DEF_HOST = "10.0.1.1";
@@ -20,31 +22,36 @@ public class ComputerMain {
 		}
 		DataMonitor dataMon = new DataMonitor();
 		ParameterMonitor paraMon = new ParameterMonitor();
+		
+		SegwayConnection con = new SegwayConnection(host, port);
+		boolean connected = false;
+		Signals sig = null;
+		while (!connected) {
+			try {
+				connected = con.connect();
+				sig = (Signals) con.getSignals();
+			} catch (IOException e) {
+				System.out.println("Not connected");
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					e.printStackTrace();
+					return;
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
 
 		final PlotterGUI plotter = new PlotterGUI(dataMon);
-		final ParameterGUI paramGUI = new ParameterGUI(paraMon);
+		final ParameterGUI paramGUI = new ParameterGUI(paraMon, sig.parameters);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				plotter.createAndShow();
 				paramGUI.createAndShow();
 			}
 		});
-
-		SegwayConnection con = new SegwayConnection(host, port);
-		boolean connected = false;
-		while (!connected) {
-			try {
-				connected = con.connect();
-			} catch (IOException e) {
-				e.printStackTrace();
-				try {
-					Thread.sleep(10000);
-				} catch (InterruptedException e1) {
-					e.printStackTrace();
-					return;
-				}
-			}
-		}
 
 		DataReceiveThread receiver = new DataReceiveThread(con, dataMon);
 		receiver.start();

@@ -12,8 +12,8 @@ public class RegulatorMonitor {
 	final static double DEFAULT_L2 = 0.1349;
 
 	final static double DEFAULT_K1 = 1.0074;
-	final static double DEFAULT_K2 = 14.7725;// 74.2533
-	final static double DEFAULT_KV = 0.0643;// 60.9601
+	final static double DEFAULT_K2 = 11.7725;// 74.2533
+	final static double DEFAULT_KV = 0.009;// 60.9601
 
 	final static boolean DEFAULT_INTEGRATOR_ON = false;
 

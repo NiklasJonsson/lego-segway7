@@ -9,14 +9,12 @@ public class Motor extends UnregulatedMotor {
 		super(portId);
 	}
 
-	public void sendSignal(double u) {
-		if (u < 0) {
-			updateState(BasicMotorPort.BACKWARD);
-			u = -u;
-		} else {
-			updateState(BasicMotorPort.FORWARD);
-		}
-		u = u > 99  ? 99 : u;
-		setPower((int) Math.round(u));
+	public void sendSignal(int percent) {
+//		if (percent < 0) {
+//			updateState(BasicMotorPort.BACKWARD);
+//		} else {
+//			updateState(BasicMotorPort.FORWARD);
+//		}
+		setPower(percent);
 	}
 }

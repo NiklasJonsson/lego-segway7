@@ -30,13 +30,15 @@ public class ParameterGUI {
 	private JTextField integralInputField;
 	private JRadioButton integralOn;
 	private JRadioButton integralOff;
+	private Parameters startParameters;
 	
 	private Font font = new Font("Arial", Font.PLAIN, 20);
 
 	private ParameterMonitor paraMon;
 
-	public ParameterGUI(ParameterMonitor paraMon) {
+	public ParameterGUI(ParameterMonitor paraMon, Parameters startParameters) {
 		this.paraMon = paraMon;
+		this.startParameters = startParameters;
 	}
 
 	/*
@@ -101,38 +103,38 @@ public class ParameterGUI {
 	private JPanel paramPane() {
 		JPanel pane = new JPanel(new GridLayout(8, 2));
 
-		l1Field = new JTextField();
+		l1Field = new JTextField(""+startParameters.L1);
 		pane.add(label("L1:"));
 		pane.add(l1Field);
 
-		l2Field = new JTextField();
+		l2Field = new JTextField(""+startParameters.L2);
 		pane.add(label("L2:"));
 		pane.add(l2Field);
 
-		lrField = new JTextField();
+		lrField = new JTextField(""+startParameters.Lr);
 		pane.add(label("Lr:"));
 		pane.add(lrField);
 
-		k1Field = new JTextField();
+		k1Field = new JTextField(""+startParameters.K1);
 		pane.add(label("K1:"));
 		pane.add(k1Field);
 
-		k2Field = new JTextField();
+		k2Field = new JTextField(""+startParameters.K2);
 		pane.add(label("K2:"));
 		pane.add(k2Field);
 		
-		kvField = new JTextField();
+		kvField = new JTextField(""+startParameters.Kv);
 		pane.add(label("Kv:"));
 		pane.add(kvField);
 
-		rField = new JTextField();
+		rField = new JTextField(""+startParameters.r);
 		pane.add(label("R:"));
 		pane.add(rField);
 
 		integralInputField = new JTextField();
 		pane.add(label("Integral action:"));
-		integralOn=new JRadioButton("On", true);
-		integralOff=new JRadioButton("Off");
+		integralOn=new JRadioButton("On", startParameters.integratorOn);
+		integralOff=new JRadioButton("Off", !startParameters.integratorOn);
 		integralOn.setFont(font);
 		integralOff.setFont(font);
 		ButtonGroup integralOnOff=new ButtonGroup();
@@ -156,7 +158,7 @@ public class ParameterGUI {
 	}
 
 	public static void main(String[] args) {
-		ParameterGUI gui = new ParameterGUI(new ParameterMonitor());
+		ParameterGUI gui = new ParameterGUI(new ParameterMonitor(), new Parameters(1,1,1,1,1,1,true,1));
 		gui.createAndShow();
 	}
 }

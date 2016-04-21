@@ -35,7 +35,8 @@ public class SegwayConnection {
 	}
 	
 	public boolean isConnected() {
-		return connected;
+		//return connected;
+		return sock.isConnected();
 	}
 	
 	public void close() throws IOException {

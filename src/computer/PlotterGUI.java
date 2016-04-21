@@ -13,9 +13,7 @@ import utility.Signals;
 
 public class PlotterGUI {
 
-	// Signals: u, y, r
-	private static final int NBR_OF_SIGNALS = 5;
-	 // TODO Another priority here?
+	private static final int MAX_NBR_OF_CHANNELS = 4;
 	private static final int PLOTTER_PRIORITY = Thread.NORM_PRIORITY;
 
 	private static final int Y_AXIS_RANGE = 60;
@@ -39,7 +37,7 @@ public class PlotterGUI {
 	public void createAndShow() {
 		// PlotterPanel ctrl = new PlotterPanel(NBR_OF_PARAMETERS,
 		// PLOTTER_PRIORITY);
-		signalsPanel = new PlotterPanel(NBR_OF_SIGNALS, PLOTTER_PRIORITY);
+		signalsPanel = new PlotterPanel(MAX_NBR_OF_CHANNELS, PLOTTER_PRIORITY);
 
 		signalsPanel.setYAxis(Y_AXIS_RANGE, Y_AXIS_BOTTOM, Y_AXIS_DIV_TICKS, Y_AXIS_DIV_GRID);
 		signalsPanel.setXAxis(X_AXIS_RANGE, X_AXIS_DIV_TICKS, X_AXIS_DIV_GRID);
@@ -50,29 +48,30 @@ public class PlotterGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(signalsPanel);
 
-		frame.pack();
-		frame.setVisible(true);
-		// Second Class parameter (Integer) is not used
+		
 		signalsPanel.start();
 		SignalFetcher fetcher = new SignalFetcher();
 		fetcher.execute();
+		
+		frame.pack();
+		frame.setVisible(true);
+
+		
 	}
 
 	public static void main(String[] args) {
 		PlotterGUI p = new PlotterGUI(new DataMonitor());
 		p.createAndShow();
 	}
-
+	// TODO Switch this to a regular thread?
 	private class SignalFetcher extends SwingWorker<Integer, Signals> {
-		private long startTime;
-
+		
 		/**
 		 * Called by a regular thread, not EDT Should not exit since we do not
 		 * want to stop fetching signals
 		 */
 		@Override
 		public Integer doInBackground() throws Exception {
-			startTime = System.currentTimeMillis();
 			while (true) {
 				publish(mon.readData());
 			}

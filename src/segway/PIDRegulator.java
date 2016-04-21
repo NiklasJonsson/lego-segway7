@@ -3,6 +3,10 @@ package segway;
 import utility.Parameters;
 import utility.Signals;
 
+/**
+ * Not actually used
+ *
+ */
 public class PIDRegulator implements Regulator {
 	private static final double[][] a = new double[][] { { 1.2287, 0.0538 }, { 9.4827, 1.2287 } };
 	private static final double[] b = new double[] { 0.0583, 2.4191 };
@@ -36,7 +40,7 @@ public class PIDRegulator implements Regulator {
 		x2 = a[1][0] * old_x1 + a[1][1] * x2 + b[1] * u + p.K2 * e;
 
 		v = v + p.Kv * e;
-		rm.setSignals(new Signals(u, y, x1, x2, p));
+		rm.setSignals(new Signals(10, u, y, x1, x2, p));
 	}
 
 }

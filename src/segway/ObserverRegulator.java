@@ -15,8 +15,11 @@ public class ObserverRegulator implements Regulator {
 
 	private double e = 0;
 	private double v = 0;
+	
+	private long startTime;
 
 	public ObserverRegulator(RegulatorMonitor rm) {
+		startTime = System.currentTimeMillis();
 		this.rm = rm;
 	}
 
@@ -34,7 +37,7 @@ public class ObserverRegulator implements Regulator {
 		x2 = a[1][0] * old_x1 + a[1][1] * x2 + b[1] * u + p.K2 * e;
 
 		v = v + p.Kv * e;
-		rm.setSignals(new Signals(u, y, x1, x2, p));
+		rm.setSignals(new Signals((double)(System.currentTimeMillis() - startTime) / 1000.0, u, y, x1, x2, p));
 	}
 
 }

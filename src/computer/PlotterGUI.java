@@ -15,10 +15,8 @@ public class PlotterGUI {
 
 	// Signals: u, y, r
 	private static final int NBR_OF_SIGNALS = 5;
-	private static final int PLOTTER_PRIORITY = Thread.NORM_PRIORITY; // TODO
-																		// Maybe
-																		// change
-																		// this?
+	 // TODO Another priority here?
+	private static final int PLOTTER_PRIORITY = Thread.NORM_PRIORITY;
 
 	private static final int Y_AXIS_RANGE = 60;
 	private static final int Y_AXIS_BOTTOM = -30;
@@ -31,7 +29,6 @@ public class PlotterGUI {
 
 	private static final int PLOTTER_UPDATE_FREQ = 10;
 
-	private JFrame mainFrame;
 	private DataMonitor mon;
 	private PlotterPanel signalsPanel;
 
@@ -90,7 +87,7 @@ public class PlotterGUI {
 			if (signalsPanel != null) {
 				for (Signals s : signalPackets) {
 					System.out.println(s.toString());
-					signalsPanel.putData((double) (System.currentTimeMillis() - startTime) / 1000.0, s.y, s.parameters.r, s.u,
+					signalsPanel.putData(s.sampleTime, s.y, s.parameters.r, s.u,
 							s.y - s.parameters.r);
 				}
 			}

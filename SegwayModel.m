@@ -34,7 +34,7 @@ K=place(phie', Ce', p); %Do we want to place poles in discrete or continous time
 Ae=[A B;zeros(1, 2) 1];
 Be=[B;0];
 pc=[-1+1i -1-1i -0.5];
-pd=exp(pc/h);
+pd=exp(pc*h);
 
 He=c2d(ss(Ae, Be, Ce, D), h);
-K2=place(He.a', He.c', p); % If the system is expanded in continous time and then sampled the results are slightly different
+K2=place(He.a', He.c', pd); % If the system is expanded in continous time and then sampled the results are slightly different

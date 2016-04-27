@@ -8,10 +8,9 @@ TODO:
 	
 * Several plotting panels for different types of signals, e.g. u goes from -99 to 99 whilst y goes from -30 to 30 and they might need different ranges (panels)
 
-* Optionally try other regulators
- 	IF we do this we need:
- 		* Different parameter and signal classes for each type of Regulator
- 		* GUI needs to handle different Regulators (maybe two panels for common signals and then extra panels for differing signals)
+* Optionally try other regulators. IF we do this we need:
+ 	* Different parameter and signal classes for each type of Regulator
+ 	* GUI needs to handle different Regulators (maybe two panels for common signals and then extra panels for differing signals)
 
 * Maybe decouple putting signals in monitor from regulator class
 * Write report

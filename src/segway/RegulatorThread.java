@@ -37,6 +37,14 @@ public class RegulatorThread extends Thread {
 				// TODO: We should be able to calculate the angle using the accelerometer
 				// with y=acc[1]*90/9.82 or something like that
 				
+				//might work to cancel out drift
+//				double offset=0;
+//				if(Math.abs(accData[1])<0.1){ or we might be able to use accData[0]-9.82
+//					offset=velData[0];
+//					y=0;
+//				}
+//				y = y + (velData[0]-offset) * ((double) h) / 1000.0;
+				
 				y = y + velData[0] * ((double) h) / 1000.0; // We have to
 															// integrate to get
 															// y

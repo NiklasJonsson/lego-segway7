@@ -28,12 +28,15 @@ public class RegulatorThread extends Thread {
 		while (!Thread.interrupted()) {
 			try {
 				long t1 = System.currentTimeMillis();
-				double[] accData = acc.read();
+				double[] accData = acc.read(); //reads absolute acceleration in x, y, z
 				double[] velData = gyro.read(); //reads angular velocity
 
 				u = Motors.limit(regulator.calculateSignal(accData, velData[0]));
 				m.sendSignal((int) u);
 
+				// TODO: We should be able to calculate the angle using the accelerometer
+				// with y=acc[1]*90/9.82 or something like that
+				
 				y = y + velData[0] * ((double) h) / 1000.0; // We have to
 															// integrate to get
 															// y

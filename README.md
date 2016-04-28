@@ -2,6 +2,8 @@
 Repo for the frtn01 lego segway project, 2016
 
 TODO:
+* Remove integrator windup
+* Use both accelerometer and gyro
 * Tune parameters for regulator
 * Fix smoother plotting, possibly by changing the SwingWorker into a regular thread that calls putData on the plotterPanel
 	Maybe give plotterPanel/GUI directly to dataReceiver thread?

@@ -33,10 +33,11 @@ public class ObserverRegulator implements Regulator {
 	public void updateState(double u, double y) {
 		e = y - x1;
 		double old_x1 = x1;
-		x1 = a[0][0] * x1 + a[0][1] * x2 + b[0] * u + p.K1 * e;
-		x2 = a[1][0] * old_x1 + a[1][1] * x2 + b[1] * u + p.K2 * e;
+		x1 = a[0][0] * x1 + a[0][1] * x2 + b[0] * (u+v) + p.K1 * e;
+		x2 = a[1][0] * old_x1 + a[1][1] * x2 + b[1] * (u+v) + p.K2 * e;
 
 		v = v + p.Kv * e;
+
 		rm.setSignals(new Signals((double)(System.currentTimeMillis() - startTime) / 1000.0, u, y, x1, x2, p));
 	}
 

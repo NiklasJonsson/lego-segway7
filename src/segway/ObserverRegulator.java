@@ -4,8 +4,8 @@ import utility.Parameters;
 import utility.Signals;
 
 public class ObserverRegulator implements Regulator {
-	private static final double[][] a = new double[][] { { 1.2287, 0.0538 }, { 9.4827, 1.2287 } };
-	private static final double[] b = new double[] { 0.0583, 2.4191 };
+	private static final double[][] a = new double[][] { { 1.1422, 0.0523 }, { 5.8178, 1.1422 } };
+	private static final double[] b = new double[] { 0.0238, 0.9732 };
 
 	private RegulatorMonitor rm;
 	private Parameters p;

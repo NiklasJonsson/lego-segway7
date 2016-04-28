@@ -21,6 +21,8 @@ D=0;
 
 G=ss(A, B, C, D);
 H=c2d(G, h);
+H.a;
+H.b;
 L=place(H.a, H.b, pd) %place poles in continous time
 lr=inv(C/(eye(2)-H.a+H.b*L)*H.b)
 

@@ -27,12 +27,12 @@ public class ParameterGUI {
 	private JTextField rField;
 	private JTextField lrField;
 	private JTextField kvField;
-	private JTextField integralInputField;
 	private JRadioButton integralOn;
 	private JRadioButton integralOff;
 	private Parameters startParameters;
 	
-	private Font font = new Font("Arial", Font.PLAIN, 20);
+	private Font lblFont = new Font("Serif", Font.PLAIN, 20);
+	private Font tfFont = new Font("Serif", Font.PLAIN, 18);
 
 	private ParameterMonitor paraMon;
 
@@ -53,7 +53,7 @@ public class ParameterGUI {
 		frame.setSize(300, 400);
 
 		JButton applyButton = new JButton("Apply");
-		applyButton.setFont(font);
+		applyButton.setFont(lblFont);
 		frame.add(paramPane(), BorderLayout.CENTER);
 		frame.add(applyButton, BorderLayout.SOUTH);
 		frame.setVisible(true);
@@ -62,7 +62,7 @@ public class ParameterGUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				double l1, l2, lr, k1, k2, r, integralInput, kv = 0;
+				double l1, l2, lr, k1, k2, r, kv = 0;
 				boolean integralAction;
 				try {
 					k1 = Double.parseDouble(k1Field.getText());
@@ -103,40 +103,39 @@ public class ParameterGUI {
 	private JPanel paramPane() {
 		JPanel pane = new JPanel(new GridLayout(8, 2));
 
-		l1Field = new JTextField(""+startParameters.L1);
+		l1Field = tf(""+startParameters.L1);
 		pane.add(label("L1:"));
 		pane.add(l1Field);
 
-		l2Field = new JTextField(""+startParameters.L2);
+		l2Field = tf(""+startParameters.L2);
 		pane.add(label("L2:"));
 		pane.add(l2Field);
 
-		lrField = new JTextField(""+startParameters.Lr);
+		lrField = tf(""+startParameters.Lr);
 		pane.add(label("Lr:"));
 		pane.add(lrField);
 
-		k1Field = new JTextField(""+startParameters.K1);
+		k1Field = tf(""+startParameters.K1);
 		pane.add(label("K1:"));
 		pane.add(k1Field);
 
-		k2Field = new JTextField(""+startParameters.K2);
+		k2Field = tf(""+startParameters.K2);
 		pane.add(label("K2:"));
 		pane.add(k2Field);
 		
-		kvField = new JTextField(""+startParameters.Kv);
+		kvField = tf(""+startParameters.Kv);
 		pane.add(label("Kv:"));
 		pane.add(kvField);
 
-		rField = new JTextField(""+startParameters.r);
+		rField = tf(""+startParameters.r);
 		pane.add(label("R:"));
 		pane.add(rField);
 
-		integralInputField = new JTextField();
 		pane.add(label("Integral action:"));
 		integralOn=new JRadioButton("On", startParameters.integratorOn);
 		integralOff=new JRadioButton("Off", !startParameters.integratorOn);
-		integralOn.setFont(font);
-		integralOff.setFont(font);
+		integralOn.setFont(lblFont);
+		integralOff.setFont(lblFont);
 		ButtonGroup integralOnOff=new ButtonGroup();
 		integralOnOff.add(integralOn);
 		integralOnOff.add(integralOff);
@@ -152,8 +151,14 @@ public class ParameterGUI {
 	
 	private JLabel label(String text){
 		JLabel ret=new JLabel(text);
-		ret.setFont(font);
+		ret.setFont(lblFont);
 		ret.setHorizontalAlignment(JLabel.CENTER);
+		return ret;
+	}
+	
+	private JTextField tf(String text){
+		JTextField ret = new JTextField(text);
+		ret.setFont(tfFont);
 		return ret;
 	}
 

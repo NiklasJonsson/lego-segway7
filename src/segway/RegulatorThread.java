@@ -22,14 +22,14 @@ public class RegulatorThread extends Thread {
 	}
 
 	public void run() {
-		double y = 0;
+		double y = 0; //angular position
 		double u = 0;
 
 		while (!Thread.interrupted()) {
 			try {
 				long t1 = System.currentTimeMillis();
 				double[] accData = acc.read();
-				double[] velData = gyro.read();
+				double[] velData = gyro.read(); //reads angular velocity
 
 				u = Motors.limit(regulator.calculateSignal(accData, velData[0]));
 				m.sendSignal((int) u);

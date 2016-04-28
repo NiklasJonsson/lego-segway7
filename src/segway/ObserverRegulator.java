@@ -10,8 +10,8 @@ public class ObserverRegulator implements Regulator {
 	private RegulatorMonitor rm;
 	private Parameters p;
 
-	private double x1 = 0;
-	private double x2 = 0;
+	private double x1 = 0; //angular position
+	private double x2 = 0; //angular velocity
 
 	private double e = 0;
 	private double v = 0;

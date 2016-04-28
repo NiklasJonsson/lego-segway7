@@ -16,8 +16,8 @@ public class PlotterGUI {
 	private static final int MAX_NBR_OF_CHANNELS = 4;
 	private static final int PLOTTER_PRIORITY = Thread.NORM_PRIORITY;
 
-	private static final int Y_AXIS_RANGE = 60;
-	private static final int Y_AXIS_BOTTOM = -30;
+	private static final int Y_AXIS_RANGE = 200;
+	private static final int Y_AXIS_BOTTOM = -100;
 	private static final int Y_AXIS_DIV_TICKS = 2;
 	private static final int Y_AXIS_DIV_GRID = 2;
 

@@ -14,7 +14,7 @@ public class RegulatorThread extends Thread {
 
 	public RegulatorThread(RegulatorMonitor rm, ComputerConnection con) {
 		this.con = con;
-		this.regulator = new ObserverRegulator(rm);
+		this.regulator = new PIDRegulator(rm);
 		m = new Motors();
 		acc = new Accelerometer();
 		gyro = new Gyroscope();
@@ -31,29 +31,30 @@ public class RegulatorThread extends Thread {
 				double[] accData = acc.read(); //reads absolute acceleration in x, y, z
 				double[] velData = gyro.read(); //reads angular velocity
 
-				u = Motors.limit(regulator.calculateSignal(accData, velData[0]));
-				m.sendSignal((int) u);
-
 				// TODO: We should be able to calculate the angle using the accelerometer
 				// with y=acc[1]*90/9.82 or something like that
 				
-				//might work to cancel out drift
+/*				//might work to cancel out drift
 				double offset=0;
 				if(Math.abs(accData[1])<0.3){ //or we might be able to use accData[0]-9.82
 					offset=velData[0];
 					y=0;
 				}
 				y = y + (velData[0]-offset) * ((double) h) / 1000.0;
-
+*/
 /* This is pure integration and does not use accel data to fix drfit
  *  
  *				y = y + velData[0] * ((double) h) / 1000.0; 
 */
 /* This is the balance filter from the blog
- *				y = (0.98) * (y + velData[0] * ((double) h) / 1000.0) + (0.02) * accData[1];
-*/
+ */				y = (0.98) * (y + velData[0] * ((double) h) / 1000.0) + (0.02) * accData[1];
+
+				
+				u = Motors.limit(regulator.calculateSignal(accData, velData[0], y));
+				m.sendSignal((int) u);
+				
 				regulator.updateState(u, y);
-				SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0], "u: " + u);
+				SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0], "u: " + y);
 				long t2 = System.currentTimeMillis();
 				long toSleep = h - (t2 - t1);
 				if (toSleep > 0) {

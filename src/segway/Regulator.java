@@ -9,7 +9,7 @@ public interface Regulator {
 	 * @param angularVelocity angularVelocity from gyro
 	 * @return
 	 */
-	public double calculateSignal(double[] accel, double angularVelocity);
+	public double calculateSignal(double[] accel, double angularVelocity, double angle);
 	
 	/**
 	 * Updates the current state based on the previously calculates control signal

@@ -38,16 +38,20 @@ public class RegulatorThread extends Thread {
 				// with y=acc[1]*90/9.82 or something like that
 				
 				//might work to cancel out drift
-//				double offset=0;
-//				if(Math.abs(accData[1])<0.1){ or we might be able to use accData[0]-9.82
-//					offset=velData[0];
-//					y=0;
-//				}
-//				y = y + (velData[0]-offset) * ((double) h) / 1000.0;
-				
-				y = y + velData[0] * ((double) h) / 1000.0; // We have to
-															// integrate to get
-															// y
+				double offset=0;
+				if(Math.abs(accData[1])<0.3){ //or we might be able to use accData[0]-9.82
+					offset=velData[0];
+					y=0;
+				}
+				y = y + (velData[0]-offset) * ((double) h) / 1000.0;
+
+/* This is pure integration and does not use accel data to fix drfit
+ *  
+ *				y = y + velData[0] * ((double) h) / 1000.0; 
+*/
+/* This is the balance filter from the blog
+ *				y = (0.98) * (y + velData[0] * ((double) h) / 1000.0) + (0.02) * accData[1];
+*/
 				regulator.updateState(u, y);
 				SegwayMain.printToScreen("0: " + accData[0], "1: " + accData[1], "2: " + accData[2], "Gyro: " + velData[0], "u: " + u);
 				long t2 = System.currentTimeMillis();

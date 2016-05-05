@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-public class ParameterGUI {
+public class ObserverGUI {
 	private JTextField k1Field;
 	private JTextField k2Field;
 	private JTextField l1Field;
@@ -29,16 +29,16 @@ public class ParameterGUI {
 	private JTextField kvField;
 	private JRadioButton integralOn;
 	private JRadioButton integralOff;
-	private Parameters startParameters;
+	private ObserverParameters startParameters;
 	
 	private Font lblFont = new Font("Serif", Font.PLAIN, 20);
 	private Font tfFont = new Font("Serif", Font.PLAIN, 18);
 
 	private ParameterMonitor paraMon;
 
-	public ParameterGUI(ParameterMonitor paraMon, Parameters startParameters) {
+	public ObserverGUI(ParameterMonitor paraMon, ObserverParameters parameters) {
 		this.paraMon = paraMon;
-		this.startParameters = startParameters;
+		this.startParameters = parameters;
 	}
 
 	/*
@@ -82,7 +82,7 @@ public class ParameterGUI {
 					System.out.println("integralaction" + integralAction);
 					System.out.println("kv" + kv);
 
-					Parameters p = new Parameters(k1, k2, l1, l2, lr, kv, integralAction, r);
+					Parameters p = new ObserverParameters(k1, k2, l1, l2, lr, kv, integralAction);
 
 					try {
 						paraMon.newParameters(p);
@@ -127,7 +127,7 @@ public class ParameterGUI {
 		pane.add(label("Kv:"));
 		pane.add(kvField);
 
-		rField = tf(""+startParameters.r);
+		rField = tf(""+startParameters.R);
 		pane.add(label("R:"));
 		pane.add(rField);
 
@@ -163,7 +163,7 @@ public class ParameterGUI {
 	}
 
 	public static void main(String[] args) {
-		ParameterGUI gui = new ParameterGUI(new ParameterMonitor(), new Parameters(1,1,1,1,1,1,true,1));
+		ObserverGUI gui = new ObserverGUI(new ParameterMonitor(), new ObserverParameters(1,1,1,1,1,1,true));
 		gui.createAndShow();
 	}
 }

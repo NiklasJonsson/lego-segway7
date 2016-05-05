@@ -14,7 +14,7 @@ import utility.Signals;
 public class PlotterGUI {
 
 	private static final int MAX_NBR_OF_CHANNELS = 4;
-	private static final int PLOTTER_PRIORITY = Thread.NORM_PRIORITY;
+	private static final int PLOTTER_PRIORITY = 8;
 
 	private static final int Y_AXIS_RANGE = 200;
 	private static final int Y_AXIS_BOTTOM = -100;
@@ -50,8 +50,8 @@ public class PlotterGUI {
 
 		
 		signalsPanel.start();
-		SignalFetcher fetcher = new SignalFetcher();
-		fetcher.execute();
+		//SignalFetcher fetcher = new SignalFetcher();
+		//fetcher.execute();
 		
 		frame.pack();
 		frame.setVisible(true);
@@ -86,8 +86,8 @@ public class PlotterGUI {
 			if (signalsPanel != null) {
 				for (Signals s : signalPackets) {
 					System.out.println(s.toString());
-					signalsPanel.putData(s.sampleTime, s.y, s.parameters.r, s.u,
-							s.y - s.parameters.r);
+					signalsPanel.putData(s.sampleTime, s.y, s.parameters.R, s.u,
+							s.parameters.R - s.y);
 				}
 			}
 		};
@@ -98,5 +98,8 @@ public class PlotterGUI {
 		@Override
 		public void done() {
 		}
+	}
+	public PlotterPanel getPlotter() {
+		return signalsPanel;
 	}
 }

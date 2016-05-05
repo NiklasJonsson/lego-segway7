@@ -12,28 +12,23 @@ public class Signals implements Cloneable, Serializable {
 	public double sampleTime;
 	public double u;
 	public double y;
-	public double x1;
-	public double x2;
 	public Parameters parameters;
 
-	public Signals(double sampleTime, double u, double y, double x1, double x2, Parameters parameters) {
+	public Signals(double sampleTime, double u, double y, Parameters parameters) {
 		this.sampleTime = sampleTime;
 		this.u = u;
 		this.y = y;
-		this.x1 = x1;
-		this.x2 = x2;
 		this.parameters = (Parameters) parameters.clone();
 	}
 
 	@Override
 	public Object clone() {
-		return new Signals(sampleTime, u, y, x1, x2, (Parameters) parameters.clone());
+		return new Signals(sampleTime, u, y, (Parameters) parameters.clone());
 	}
 
 	@Override
 	public String toString() {
-		return "Signals [sampleTime=" + sampleTime + ", u=" + u + ", y=" + y + ", x1=" + x1 + ", x2=" + x2
-				+ ", parameters=" + parameters + "]";
+		return "Signals [sampleTime=" + sampleTime + ", u=" + u + ", y=" + y + ", parameters=" + parameters + "]";
 	}
 
 }

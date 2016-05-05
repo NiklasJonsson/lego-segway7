@@ -1,27 +1,16 @@
 package segway;
 
+import utility.ObserverParameters;
 import utility.Parameters;
 import utility.Signals;
 
-public class RegulatorMonitor {
+public abstract class RegulatorMonitor implements Regulator{
 	private Signals signals;
-	private Parameters params;
+	protected Parameters params;
 
-	final static double DEFAULT_L1 = 6.2159;
-	final static double DEFAULT_L2 = 0.3382;
-	final static double DEFAULT_LR = 0.2379;
 
-	final static double DEFAULT_K1 = 0.9343;
-	final static double DEFAULT_K2 = 11.2167;// 74.2533
-	final static double DEFAULT_KV = 0.4205;// 60.9601
-
-	final static boolean DEFAULT_INTEGRATOR_ON = true;
-
-	final static double DEFAULT_R = 0;
-
-	public RegulatorMonitor() {
-		params = new Parameters(DEFAULT_K1, DEFAULT_K2, DEFAULT_L1, DEFAULT_L2, DEFAULT_LR, DEFAULT_KV,
-				DEFAULT_INTEGRATOR_ON, DEFAULT_R);
+	protected RegulatorMonitor(Parameters p) {
+		params = (Parameters) p.clone();
 	}
 
 	public synchronized Signals getSignals() {
@@ -32,12 +21,15 @@ public class RegulatorMonitor {
 		this.params = (Parameters) params.clone();
 	}
 
-	public synchronized Parameters getParameters() {
-		return (Parameters) params.clone();
-	}
 
-	public synchronized void setSignals(Signals s) {
+	protected synchronized void setSignals(Signals s) {
 		signals = (Signals) s.clone();
 	}
+
+	@Override
+	public abstract double calculateSignal(double[] accel, double angularVelocity, double angle);
+
+	@Override
+	public abstract void updateState(double u, double y);
 
 }

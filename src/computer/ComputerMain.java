@@ -1,16 +1,17 @@
 package computer;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
 
-import utility.Signals;
+import utility.*;
 
 public class ComputerMain {
 	static final int DEF_PORT = 1234;
 	static final String DEF_HOST = "10.0.1.1";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		int port = DEF_PORT;
 		String host = DEF_HOST;
 
@@ -44,16 +45,17 @@ public class ComputerMain {
 		}
 		
 
-		final PlotterGUI plotter = new PlotterGUI(dataMon);
-		final ParameterGUI paramGUI = new ParameterGUI(paraMon, sig.parameters);
-		SwingUtilities.invokeLater(new Runnable() {
+		final PlotterGUI plotterGUI = new PlotterGUI(dataMon);
+		final PID_GUI gui = new PID_GUI(paraMon, (PIDParameters) sig.parameters);
+		//final ObserverGUI paramGUI = new ObserverGUI(paraMon, (ObserverParameters) sig.parameters);
+		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
-				plotter.createAndShow();
-				paramGUI.createAndShow();
+				plotterGUI.createAndShow();
+				gui.createAndShow();
 			}
 		});
 
-		DataReceiveThread receiver = new DataReceiveThread(con, dataMon);
+		DataReceiveThread receiver = new DataReceiveThread(con, dataMon, plotterGUI.getPlotter());
 		receiver.start();
 		ParameterSendThread sender = new ParameterSendThread(con, paraMon);
 		sender.start();

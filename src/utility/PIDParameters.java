@@ -2,7 +2,15 @@ package utility;
 
 import java.io.Serializable;
 
-public class PIDParameters implements Cloneable, Serializable {
+public class PIDParameters extends Parameters {
+	
+	private static final double DEFAULT_K = 10;// Gain
+	private static final double DEFAULT_TI = 0; // Integral weight parameter
+    private static final double DEFAULT_TR = 0;// Tracking weight
+   	private static final double DEFAULT_TD = 0.5; // Derivative weight
+   	private static final double DEFAULT_N = 6; // Low pass filter constant for derivate
+    private static final double DEFAULT_BETA = 1.0; // Set point weighting for P-part    
+    
 	/**
 	 * Change this if fields are changed 
 	 * Used to keep track of different ways of serializing this class
@@ -14,26 +22,37 @@ public class PIDParameters implements Cloneable, Serializable {
 	public double ti;
 	public double tr;
 	public double td;
+	public double N;
 	public boolean integratorOn;
-	public double r;
+	public double Beta;
 	
-	public PIDParameters(double k, double ti, double tr, double td, boolean integratorOn, double r) {
+	public PIDParameters() {
+		k = DEFAULT_K;
+		ti = DEFAULT_TI;
+		tr = DEFAULT_TR;
+		td = DEFAULT_TD;
+		N = DEFAULT_N;
+		Beta = DEFAULT_BETA;
+		integratorOn = ti != 0;
+	}
+	public PIDParameters(double k, double ti, double tr, double td, double N, boolean integratorOn) {
 		this.k = k;
 		this.ti = ti;
 		this.tr = tr;
 		this.td = td;
+		this.N = N;
+		this.Beta = DEFAULT_BETA;
 		this.integratorOn = integratorOn;
-		this.r = r;
 	}
 
 	@Override
 	public Object clone() {
-		return new PIDParameters(k, ti, tr, td, integratorOn, r);
+		return new PIDParameters(k, ti, tr, td, N, integratorOn);
 	}
 
 	@Override
 	public String toString() {
 		return "Parameters [K=" + k + ", Ti=" + ti + ", Tr=" + tr + ", Td=" + td 
-				+ ", integratorOn=" + integratorOn + ", r=" + r + "]";
+				+ ", integratorOn=" + integratorOn + "]";
 	}
 }

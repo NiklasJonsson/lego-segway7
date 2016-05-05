@@ -25,18 +25,19 @@ public class PID_GUI {
 	private JTextField trField;
 	private JTextField tdField;
 	private JTextField rField;
+	private JTextField nField;
 	private JRadioButton integralOn;
 	private JRadioButton integralOff;
 	private PIDParameters startParameters;
-	
+
 	private Font lblFont = new Font("Serif", Font.PLAIN, 20);
 	private Font tfFont = new Font("Serif", Font.PLAIN, 18);
 
-	private PIDParameterMonitor paraMon;
+	private ParameterMonitor paraMon;
 
-	public PID_GUI(PIDParameterMonitor paraMon, PIDParameters startParameters) {
+	public PID_GUI(ParameterMonitor paraMon, PIDParameters parameters) {
 		this.paraMon = paraMon;
-		this.startParameters = startParameters;
+		this.startParameters = parameters;
 	}
 
 	/*
@@ -60,23 +61,25 @@ public class PID_GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				double tr, td, k, ti, r = 0;
+				double tr, N, td, k, ti, r = 0;
 				boolean integralAction;
 				try {
 					k = Double.parseDouble(kField.getText());
 					ti = Double.parseDouble(tiField.getText());
 					tr = Double.parseDouble(trField.getText());
 					td = Double.parseDouble(tdField.getText());
+					N = Double.parseDouble(nField.getText());
 					r = Double.parseDouble(rField.getText());
 					integralAction = integralOn.isSelected();
 					System.out.println("K:" + k);
 					System.out.println("Ti" + ti);
 					System.out.println("Tr" + tr);
 					System.out.println("Td" + td);
+					System.out.println("N" + N);
 					System.out.println("r" + r);
 					System.out.println("integralaction" + integralAction);
 
-					PIDParameters p = new PIDParameters(k, ti, tr, td, integralAction, r);
+					PIDParameters p = new PIDParameters(k, ti, tr, td, N, integralAction);
 
 					try {
 						paraMon.newParameters(p);
@@ -95,61 +98,63 @@ public class PID_GUI {
 	}
 
 	private JPanel paramPane() {
-		JPanel pane = new JPanel(new GridLayout(6, 2));
+		JPanel pane = new JPanel(new GridLayout(7, 2));
 
-		kField = tf(""+startParameters.k);
+		kField = tf("" + startParameters.k);
 		pane.add(label("K:"));
 		pane.add(kField);
 
-		tiField = tf(""+startParameters.ti);
+		tiField = tf("" + startParameters.ti);
 		pane.add(label("Ti:"));
 		pane.add(tiField);
 
-		trField = tf(""+startParameters.tr);
+		trField = tf("" + startParameters.tr);
 		pane.add(label("Tr:"));
 		pane.add(trField);
 
-		tdField = tf(""+startParameters.td);
+		tdField = tf("" + startParameters.td);
 		pane.add(label("Td"));
 		pane.add(tdField);
 
-		rField = tf(""+startParameters.r);
+		nField = tf("" + startParameters.N);
+		pane.add(label("N:"));
+		pane.add(nField);
+
+		rField = tf("" + startParameters.R);
 		pane.add(label("R:"));
 		pane.add(rField);
 
 		pane.add(label("Integral action:"));
-		integralOn=new JRadioButton("On", startParameters.integratorOn);
-		integralOff=new JRadioButton("Off", !startParameters.integratorOn);
+		integralOn = new JRadioButton("On", startParameters.integratorOn);
+		integralOff = new JRadioButton("Off", !startParameters.integratorOn);
 		integralOn.setFont(lblFont);
 		integralOff.setFont(lblFont);
-		ButtonGroup integralOnOff=new ButtonGroup();
+		ButtonGroup integralOnOff = new ButtonGroup();
 		integralOnOff.add(integralOn);
 		integralOnOff.add(integralOff);
-		JPanel integralPane=new JPanel(new GridLayout(1, 2));
+		JPanel integralPane = new JPanel(new GridLayout(1, 2));
 		integralPane.add(integralOn);
 		integralPane.add(integralOff);
 		pane.add(integralPane);
 
-		
-
 		return pane;
 	}
-	
-	private JLabel label(String text){
-		JLabel ret=new JLabel(text);
+
+	private JLabel label(String text) {
+		JLabel ret = new JLabel(text);
 		ret.setFont(lblFont);
 		ret.setHorizontalAlignment(JLabel.CENTER);
 		return ret;
 	}
-	
-	private JTextField tf(String text){
+
+	private JTextField tf(String text) {
 		JTextField ret = new JTextField(text);
 		ret.setFont(tfFont);
 		return ret;
 	}
 
 	public static void main(String[] args) {
-		PID_GUI gui = new PID_GUI(new PIDParameterMonitor(), new PIDParameters(1,1,1,1,true,1));
+		PID_GUI gui = new PID_GUI(new ParameterMonitor(), new PIDParameters(1, 1, 1, 1, 1, true));
 		gui.createAndShow();
 	}
 }

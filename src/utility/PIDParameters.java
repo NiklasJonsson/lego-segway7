@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class PIDParameters extends Parameters {
 	
 	private static final double DEFAULT_K = 10;// Gain
-	private static final double DEFAULT_TI = 0; // Integral weight parameter
-    private static final double DEFAULT_TR = 0;// Tracking weight
-   	private static final double DEFAULT_TD = 0.5; // Derivative weight
-   	private static final double DEFAULT_N = 6; // Low pass filter constant for derivate
+	private static final double DEFAULT_TI = 0.1; // Integral weight parameter
+    private static final double DEFAULT_TR = 1;// Tracking weight
+   	private static final double DEFAULT_TD = 0.45; // Derivative weight
+   	private static final double DEFAULT_N = 5; // Low pass filter constant for derivate
     private static final double DEFAULT_BETA = 1.0; // Set point weighting for P-part    
     
 	/**

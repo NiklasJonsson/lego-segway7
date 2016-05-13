@@ -8,12 +8,10 @@ import utility.Signals;
 public class DataReceiveThread extends Thread {
 	private SegwayConnection con;
 	private DataMonitor mon;
-	private PlotterPanel plotter;
 
-	public DataReceiveThread(SegwayConnection con, DataMonitor mon, PlotterPanel plotter) {
+	public DataReceiveThread(SegwayConnection con, DataMonitor mon) {
 		this.con = con;
 		this.mon = mon;
-		this.plotter = plotter;
 	}
 
 	public void run() {
@@ -25,8 +23,7 @@ public class DataReceiveThread extends Thread {
 				if (o instanceof Signals) {
 					Signals s = (Signals) o;
 					System.out.println(s.toString());
-					plotter.putData(s.sampleTime, s.y, s.parameters.R, s.u, s.y - s.parameters.R);
-					//mon.newData((Signals) o);
+					mon.newData((Signals) o);
 				} else {
 					Exception e = (Exception) o;
 					e.printStackTrace();
@@ -38,7 +35,7 @@ public class DataReceiveThread extends Thread {
 				try {
 					con.connect();
 				} catch (IOException e2) {
-					System.out.println("Disconnected");
+				//	System.out.println("Disconnected");
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e1) {

@@ -55,7 +55,7 @@ public class ComputerMain {
 			}
 		});
 
-		DataReceiveThread receiver = new DataReceiveThread(con, dataMon, plotterGUI.getPlotter());
+		DataReceiveThread receiver = new DataReceiveThread(con, dataMon);
 		receiver.start();
 		ParameterSendThread sender = new ParameterSendThread(con, paraMon);
 		sender.start();

@@ -33,7 +33,11 @@ public class PIDRegulator extends RegulatorMonitor {
 		if(p.td==0 && p.N==0) {
 			ad=0;
 		} else {
-			ad = p.td/(p.td+p.N*((double) RegulatorThread.h/1000.0));
+			double H = ((double) RegulatorThread.h)/1000.0;
+			ad = p.td/(p.td+p.N*H);
+		}
+		if (!p.integratorOn) {
+			I = 0.0;
 		}
 		
 		bd = p.k * ad * p.N;

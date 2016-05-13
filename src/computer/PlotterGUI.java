@@ -13,7 +13,7 @@ import utility.Signals;
 
 public class PlotterGUI {
 
-	private static final int MAX_NBR_OF_CHANNELS = 4;
+	private static final int MAX_NBR_OF_CHANNELS = 2;
 	private static final int PLOTTER_PRIORITY = 8;
 
 	private static final int Y_AXIS_RANGE = 200;
@@ -25,7 +25,7 @@ public class PlotterGUI {
 	private static final int X_AXIS_DIV_TICKS = 5;
 	private static final int X_AXIS_DIV_GRID = 5;
 
-	private static final int PLOTTER_UPDATE_FREQ = 10;
+	private static final int PLOTTER_UPDATE_FREQ = 1;
 
 	private DataMonitor mon;
 	private PlotterPanel signalsPanel;
@@ -50,8 +50,8 @@ public class PlotterGUI {
 
 		
 		signalsPanel.start();
-		//SignalFetcher fetcher = new SignalFetcher();
-		//fetcher.execute();
+		SignalFetcher fetcher = new SignalFetcher();
+		fetcher.execute();
 		
 		frame.pack();
 		frame.setVisible(true);
@@ -86,8 +86,7 @@ public class PlotterGUI {
 			if (signalsPanel != null) {
 				for (Signals s : signalPackets) {
 					System.out.println(s.toString());
-					signalsPanel.putData(s.sampleTime, s.y, s.parameters.R, s.u,
-							s.parameters.R - s.y);
+					signalsPanel.putData(s.sampleTime, s.y, s.u);
 				}
 			}
 		};

@@ -24,7 +24,6 @@ public class PID_GUI {
 	private JTextField tiField;
 	private JTextField trField;
 	private JTextField tdField;
-	private JTextField rField;
 	private JTextField nField;
 	private JRadioButton integralOn;
 	private JRadioButton integralOff;
@@ -61,7 +60,7 @@ public class PID_GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				double tr, N, td, k, ti, r = 0;
+				double tr, N, td, k, ti;
 				boolean integralAction;
 				try {
 					k = Double.parseDouble(kField.getText());
@@ -69,14 +68,12 @@ public class PID_GUI {
 					tr = Double.parseDouble(trField.getText());
 					td = Double.parseDouble(tdField.getText());
 					N = Double.parseDouble(nField.getText());
-					r = Double.parseDouble(rField.getText());
 					integralAction = integralOn.isSelected();
 					System.out.println("K:" + k);
 					System.out.println("Ti" + ti);
 					System.out.println("Tr" + tr);
 					System.out.println("Td" + td);
 					System.out.println("N" + N);
-					System.out.println("r" + r);
 					System.out.println("integralaction" + integralAction);
 
 					PIDParameters p = new PIDParameters(k, ti, tr, td, N, integralAction);
@@ -98,7 +95,7 @@ public class PID_GUI {
 	}
 
 	private JPanel paramPane() {
-		JPanel pane = new JPanel(new GridLayout(7, 2));
+		JPanel pane = new JPanel(new GridLayout(6, 2));
 
 		kField = tf("" + startParameters.k);
 		pane.add(label("K:"));
@@ -120,9 +117,6 @@ public class PID_GUI {
 		pane.add(label("N:"));
 		pane.add(nField);
 
-		rField = tf("" + startParameters.R);
-		pane.add(label("R:"));
-		pane.add(rField);
 
 		pane.add(label("Integral action:"));
 		integralOn = new JRadioButton("On", startParameters.integratorOn);

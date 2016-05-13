@@ -15,12 +15,11 @@ public class SegwayMain {
 		int port = 1234;
 		PIDRegulator reg = new PIDRegulator();
 		ComputerConnection con = new ComputerConnection(port);
-		RegulatorThread regulator = new RegulatorThread(con, reg);
+		RegulatorThread regulator = new RegulatorThread(reg);
 		
 		try{
 			regulator.start();
 			con.connect();
-			regulator.addDebugConnection(con);
 			DataSendThread sender = new DataSendThread(con, reg);
 			sender.start();
 			ParameterReceiverThread receiver = new ParameterReceiverThread(reg, con);

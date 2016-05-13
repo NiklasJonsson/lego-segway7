@@ -9,16 +9,12 @@ public class RegulatorThread extends Thread {
 	private Accelerometer acc;
 	private Gyroscope gyro;
 	private Regulator regulator;
-	private ComputerConnection con;
-	private boolean hasDebugConnection;
 
-	public RegulatorThread(ComputerConnection con, Regulator regulator) {
-		this.con = con;
+	public RegulatorThread(Regulator regulator) {
 		this.regulator = regulator;
 		m = new Motors();
 		acc = new Accelerometer();
 		gyro = new Gyroscope();
-		hasDebugConnection = false;
 	}
 
 	public void run() {
@@ -64,25 +60,9 @@ public class RegulatorThread extends Thread {
 					SegwayMain.printToScreen(toSleep + "Negative sleep time");
 				}
 			} catch (Exception e1) {
-				if (hasDebugConnection) {
-					try {
-						con.send(e1);
-					} catch (IOException e) {
-						// Do nothing
-					}
 					e1.printStackTrace();
-					Thread.currentThread().interrupt();
-					break;
-				} else {
-					e1.printStackTrace();
-				}
 			}
 		}
 
-	}
-
-	public void addDebugConnection(ComputerConnection con2) {
-		con = con2;
-		hasDebugConnection = true;
 	}
 }

@@ -1,6 +1,5 @@
 package segway;
 
-import utility.ObserverParameters;
 import utility.Parameters;
 import utility.Signals;
 

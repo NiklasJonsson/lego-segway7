@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class RegulatorThread extends Thread {
 	public final static long h = 30;
+	private final static double BALANCE_FACTOR = 0.1;
 
 	private Motors m;
 	private Accelerometer acc;
@@ -43,7 +44,7 @@ public class RegulatorThread extends Thread {
  *				y = y + velData[0] * ((double) h) / 1000.0; 
 */
 /* This is the balance filter from the blog
-*/ 				y = (0.95) * (y + velData[0] * ((double) h) / 1000.0) + (0.05) * accData[1];
+*/ 				y = (1-BALANCE_FACTOR) * (y + velData[0] * ((double) h) / 1000.0) + (BALANCE_FACTOR) * accData[1];
 
 				
 				u = Motors.limit(regulator.calculateSignal(accData, velData[0], y));

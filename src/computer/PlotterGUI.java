@@ -21,7 +21,7 @@ public class PlotterGUI {
 	private static final int Y_AXIS_DIV_TICKS = 2;
 	private static final int Y_AXIS_DIV_GRID = 2;
 
-	private static final int X_AXIS_RANGE = 15;
+	private static final int X_AXIS_RANGE = 30;
 	private static final int X_AXIS_DIV_TICKS = 5;
 	private static final int X_AXIS_DIV_GRID = 5;
 
